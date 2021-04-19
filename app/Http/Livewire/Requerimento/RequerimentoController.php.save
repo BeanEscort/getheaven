@@ -1,0 +1,387 @@
+<?php
+
+namespace App\Http\Livewire\Requerimento;
+
+use Livewire\Component;
+use Livewire\WithPagination;
+use Illuminate\Support\Carbon;
+use Illuminate\Validation\Rule;
+use App\Traits\GenericTrait;
+
+use \App\Models\Rota;
+use \App\Models\Cliente;
+use \App\Models\Pessoa;
+use \App\Models\Funeraria;
+use \App\Models\Cemiterio;
+use \App\Models\Taxa;
+use \App\Models\Tipo;
+use App\Models\Ufir;
+
+class RequerimentoController extends Component
+{
+    use WithPagination;
+	use GenericTrait;
+
+    public $cpf, $data_cadastro, $nomeCliente, $cep, $logradouro, $complemento;
+    public $nro, $bairro, $localidade, $uf, $telefone, $celular1, $celular2, $user_id;
+    public $selected_id, $selected_cpf, $search, $action = 1 ;
+
+    public $cnome = null, $tnome = null, $fnome = null,$nomePessoa, $cliente_id=null, $mae, $idade, $quadra, $numero;
+    public $tp_sepultura='Escolha', $taxa_id='Escolha', $valor_taxa, $total_ufir, $ufir, $ufir_id;
+    public $dt_obito, $dt_sepultamento, $tipo, $tipotaxa, $hora_sepultamento, $latitude;
+    public $longitude, $obs, $cemiterio_id='Escolha', $funeraria_id='Escolha';
+    public $cemiterios, $funerarias, $tipos, $taxas, $modalFormVisible = false;
+    private $pagination = 5;
+    public $modalFunerariaVisible = false;
+    public $modalTipoVisible = false;
+    public $modalTaxaVisible = false;
+
+    public function mount()
+    {
+        $ufir = Ufir::where('ano', date_format(now(),'Y'))->first();
+        if($ufir){
+            $this->ufir = $ufir->valor_ufir;
+            $this->ufir_id = $ufir->id;
+        } else {
+            $this->ufir = 0.00;
+        }
+
+    }
+
+
+    public function render()
+    {
+        $this->clientes = Cliente::all();
+        $this->cemiterios = Cemiterio::get();
+        $this->funerarias = Funeraria::get();
+        $this->taxas = Taxa::get();
+        $this->tipos = Tipo::get();
+        if(auth()->user())
+        $this->user_id = auth()->user()->id;
+
+        if(strlen($this->search) > 1){
+            if(intval($this->search) > 0){
+                $info = Pessoa::where('numero', $this->search)->orderBy('dt_obito', 'desc')
+                ->paginate($this->pagination);
+            } else {
+                $info = Pessoa::where('nome', 'like', '%'.$this->search.'%')
+                    ->orWhere('mae', 'like', '%'.$this->search.'%')
+		    ->orderBy('dt_obito', 'desc')
+                    ->paginate($this->pagination);
+            }
+        }
+        else {
+            $info = Pessoa::orderBy('dt_obito', 'desc')
+                    ->paginate($this->pagination);
+
+        }
+
+        return view('livewire.requerimento.requerimento-controller', [
+            'info' => $info
+        ]);
+    }
+
+
+    public function createCemiterio()
+    {
+        if($this->cnome==null){
+            session()->flash('danger', 'Nome do cemitério é obrigatório');
+            return;
+        }
+
+        if(Cemiterio::where('nome', $this->cnome)->count() > 0){
+            session()->flash('danger', 'Cemitério já cadastrado');
+            $this->cnome = null;
+            return;
+        }
+
+        Cemiterio::create($this->modelData($this->cnome));
+        $this->cemiterios = Cemiterio::get();
+
+        $this->modalFormVisible = false;
+        session()->flash('message', 'Registro criado com exito');
+        $this->cnome = null;
+    }
+
+    public function createTaxa()
+    {
+
+        if($this->tipotaxa===null){
+            session()->flash('danger', 'Descrição da taxa é obrigatório');
+            return;
+        }
+
+        if(Taxa::where('tipo', $this->tipotaxa)->count() > 0){
+            session()->flash('danger', 'Esse tipo de taxa já está cadastrado');
+            $this->tipotaxa = null;
+            return;
+        }
+
+        $this->validate([
+            'tipotaxa' => 'required',
+            'valor_taxa' => 'required',
+            'total_ufir' => 'required',
+        ]);
+
+        Taxa::create([
+            'tipo' => $this->converteMaiusculo($this->tipotaxa),
+            'valor' => $this->valor_taxa,
+            'total_ufir' => $this->total_ufir,
+            'ufir_id' => $this->ufir_id,
+        ]);
+        $this->taxas = Taxa::get();
+
+        $this->resetTaxa();
+        session()->flash('message', 'Registro criado com exito');
+    }
+
+    public function resetTaxa()
+    {
+        $this->tipotaxa = null;
+        $this->valor_taxa = null;
+        $this->total_ufir = null;
+    }
+
+    public function updateValor()
+    {
+        $this->valor_taxa = number_format($this->total_ufir * $this->ufir, 2);
+    }
+
+
+    public function createFuneraria()
+    {
+        if($this->fnome==null){
+            session()->flash('danger', 'Nome da funerária é obrigatório.');
+            return;
+        }
+
+        if(Funeraria::where('nome', $this->fnome)->count() > 0){
+            session()->flash('danger', 'Funerária já cadastrada');
+            $this->fnome = null;
+            return;
+        }
+
+        Funeraria::create($this->modelData($this->fnome));
+
+        $this->funerarias = Funeraria::get();
+        $this->fnome = null;
+        session()->flash('message', 'Registro criado com exito');
+
+    }
+
+    public function createTipo()
+    {
+        $this->tipo = $this->converteMaiusculo($this->tipo);
+        if($this->tipo ==''){
+            session()->flash('danger', 'Tipo de Sepultura é obrigatório');
+            return;
+        }
+
+        if(Tipo::where('tipo', $this->tipo)->count() > 0) {
+            session()->flash('danger', 'Tipo de Sepultura já cadastrado!');
+            $this->tipo = null;
+            return;
+        }
+
+        Tipo::create( ['tipo' => $this->tipo]);
+        $this->tipos = Tipo::get();
+        session()->flash('message', 'Registro criado com exito');
+        $this->tipo = null;
+    }
+
+    public function modelData($campo)
+    {
+        return [
+            'nome' => $this->converteMaiusculo($campo),
+        ];
+    }
+
+    public function createShowModal($q)
+    {
+        if ($q === 1) {
+            $this->modalFormVisible = true;
+        } else if ($q === 2){
+            $this->modalFunerariaVisible = true;
+        } else if ($q === 3){
+            $this->modalTipoVisible = true;
+        } else if ($q === 4){
+            $this->modalTaxaVisible = true;
+        }
+
+    }
+
+    public function buscaCPF()
+    {
+        if(strlen($this->cpf) <=0) return;
+
+        if($this->selected_cpf) return;
+
+        $this->cpf = preg_replace('/[^0-9]/', '', $this->cpf);
+
+        $rules = ['cpf' => 'required'];
+
+        $customMessages = ['cpf.required' => 'O CPF é obrigatório!'];
+
+        $this->validate($rules, $customMessages);
+
+        if(!$this->ValidaCpf($this->cpf)) {
+            $this->emit('msg-error', 'CPF / CNPJ é inválido..');
+            $this->cpf = '';
+            return back();
+        }
+
+        $info = Cliente::where('cpf', $this->cpf)->first();
+
+            if($info){
+
+                    $this->selected_cpf = $info->cpf;
+                    $this->emit('msgok', 'Cliente já existe... Atualizando...');
+                    $this->editCliente($info->id);
+
+            }
+            else {
+                $cpf = $this->cpf;
+                $this->resetCliente();
+                $this->cpf = $this->CpfCli($cpf);
+            }
+
+    }
+
+
+    public function updatingSearch()
+    {
+        $this->gotoPage(1);
+    }
+
+    public function doAction($action)
+    {
+        $this->resetInput();
+        $this->action = $action;
+
+    }
+
+    function resetCliente()
+    {
+        $this->cpf = '';
+        $this->data_cadastro = null;
+        $this->nomeCliente = '';
+        $this->cep = '';
+        $this->logradouro = '';
+        $this->nro = '';
+        $this->complemento = '';
+        $this->bairro = '';
+        $this->localidade = '';
+        $this->uf = '';
+        $this->telefone = '';
+        $this->celular1 = '';
+        $this->celular2 = '';
+
+    }
+
+    public function resetInput()
+    {
+        $this->resetCliente();
+
+        $this->cliente_id = null;
+        $this->nomePessoa = '';
+        $this->mae = '';
+        $this->idade = '';
+        $this->quadra = '';
+        $this->numero = null;
+        $this->valor_taxa = 0.00;
+        $this->tp_sepultura = 'Escolha';
+        $this->cemiterio_id = 'Escolha';
+        $this->funeraria_id = 'Escolha';
+        $this->taxa_id = 'Escolha';
+
+        $this->latitude ='';
+        $this->longitude ='';
+        $this->obs ='';
+        $this->dt_obito = null;
+        $this->dt_sepultamento = null;
+        $this->hora_sepultamento = null;
+
+        $this->selected_id = null;
+        $this->selected_cpf = null;
+        $this->action = 1;
+        $this->search = '';
+    }
+
+    public function editCliente($id)
+    {
+        $cliente = Cliente::where('id', $id)->first();
+        if($cliente){
+            $this->selected_cpf     = $cliente->cpf;
+
+            $this->cpf              = $cliente->cpf;
+
+            $this->data_cadastro    = $cliente->data_cadastro;
+            $this->nomeCliente      = $cliente->nome;
+            $this->cep              = $cliente->cep;
+            $this->logradouro       = $cliente->endereco;
+            $this->nro              = $cliente->nro;
+            $this->complemento      = $cliente->complemento;
+            $this->bairro           = $cliente->bairro;
+            $this->localidade       = $cliente->cidade;
+            $this->uf               = $cliente->uf;
+            $this->telefone         = $cliente->telefone;
+            $this->celular1         = $cliente->celular1;
+            $this->celular2         = $cliente->celular2;
+        }
+    }
+
+    public function edit($id)
+    {
+        $record = Pessoa::findOrFail($id);
+
+        $this->selected_id = $id;
+
+        $this->cliente_id = $record->cliente_id;
+
+
+        if($this->cliente_id) $this->editCliente($this->cliente_id);
+
+        $this->nomePessoa = $record->nome;
+        $this->mae = $record->mae;
+        $this->idade = $record->idade;
+        $this->quadra = $record->quadra;
+        $this->numero = $record->numero;
+        $this->valor_taxa = $record->valor_taxa;
+        $this->tp_sepultura = $record->tipo_id;
+        $this->cemiterio_id = $record->cemiterio_id;
+        $this->funeraria_id = $record->funeraria_id;
+        $this->taxa_id = $record->taxa_id;
+        $this->valor_pago = $record->valor_pago;
+
+
+        $this->latitude = $record->latitude;
+        $this->longitude = $record->longitude;
+
+        $this->obs = $record->obs;
+        $this->dt_obito = date_format($record->dt_obito,'Y-m-d');
+        $this->dt_sepultamento = date_format($record->dt_sepultamento,'Y-m-d');
+        $this->hora_sepultamento = $record->hora_sepultamento;
+
+        $this->action = 2;
+    }
+
+    public function StoreOrUpdate()
+    {
+
+        $this->validate([
+            'dt_obito' => ['required', 'before_or_equal:dt_sepultamento'],
+            'dt_sepultamento' => ['required', 'after_or_equal:dt_obito'],
+            'nomePessoa' => 'required',
+            'quadra' => ['required','string','max:4'],
+            'numero' => ['required', 'int'],
+            'tp_sepultura' => 'Required|not_in:Escolha',
+            'cemiterio_id' => 'Required|not_in:Escolha',
+            'funeraria_id' => 'Required|not_in:Escolha',
+            'taxa_id' => 'Required|not_in:Escolha',
+
+            'cpf' => 'required|max:18',
+            'data_cadastro' => 'required',
+            'nomeCliente' => 'required',
+            'logradouro' => 'required',
+            'nro' => 'required',
+            'bairro' => 'required',
