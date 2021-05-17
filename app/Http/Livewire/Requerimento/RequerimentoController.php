@@ -52,13 +52,35 @@ class RequerimentoController extends Component
     public function render()
     {
         $this->clientes = Cliente::get();
-/*	$qtd = $this->clientes->count();
-
-	for ($i = 1; $i<=$qtd-1 ; $i++) {
+/*	 $qtd = $this->clientes->count();
+	for ($i = 1; $i<$qtd ; $i++) {
     		$cpf = $this->clientes[$i]['cpf'];
-		Pessoa::where('cpf_cliente','=',$cpf)
-		->update(['cliente_id' => $this->clientes[$i]['id']]);
+            $end = $this->clientes[$i]['endereco'].', '.$this->clientes[$i]['nro'];
+
+            $bai = 'Bairro: '.$this->clientes[$i]['bairro'].' - '.$this->clientes[$i]['cidade'].'-'.$this->clientes[$i]['uf'];
+            $tel = 'Telefone(s): '.$this->clientes[$i]['telefone'].' '.$this->clientes[$i]['celular1'].' '.$this->clientes[$i]['celular2'];
+
+	    $pessoa = Pessoa::where('cpf_cliente','=',$cpf)->first();
+	if($pessoa){
+		$obs = $pessoa->obs;
+		if(!$obs){ 
+			$txid = $pessoa->taxa_id;
+			$tx = 0;
+			if(intval($txid>0))
+            			$tx = TAXA::find($txid);
+
+			if($tx){
+            			$obs = 'TAXA (R$'.number_format($tx->valor,2).') REFERENTE A '.$tx->tipo;
+            			$obs = $obs.'<br>'.$end.'<br>'.$bai.'<br>'.$tel;
+			}
+		}
+	        $pessoa->update([
+            	    'cliente_id' => $this->clientes[$i]['id'],
+                    'obs' => $obs            
+            	]);
         }
+
+	}
 */
         $this->cemiterios = Cemiterio::get();
         $this->funerarias = Funeraria::get();

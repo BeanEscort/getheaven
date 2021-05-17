@@ -84,7 +84,7 @@ SERVIÇOS CEMITERIAIS
                     <td width="15%"></td>
                     <td>PERPETUIDADE</td>
                     <td width="0.5%">  </td>
-                    <td style="border-bottom: 1px solid #000000;"><strong>{{ ($pessoa->tipo_id===1 ? 'Sim' : ($pessoa->tipo_id===2 ? 'Sim' : 'Não'))}}</strong> </td>
+                    <td style="border-bottom: 1px solid #000000;"><strong>{{ ($pessoa->tipo_id===1 ? 'Sim' : ($pessoa->tipo_id===4 ? 'Sim' : 'Não'))}}</strong> </td>
                     <td width="15%"></td>
                 </tr>
 

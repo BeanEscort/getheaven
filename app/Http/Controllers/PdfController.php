@@ -42,6 +42,11 @@ class PdfController extends Controller
             session()->flash('msg-error', 'O Requerente não foi encontrado, complete os dados antes de  continuar.');
             return redirect()->back();
         }
+
+	$pessoa->domain = auth()->user()->domain;
+	$pessoa->orgao = auth()->user()->orgao;
+	$pessoa->name = auth()->user()->name;
+
 	$fileName = time().$pessoa->cpf.date("dmY").'.pdf';
         $pessoa->cpf = cpf($pessoa->cpf);
         $pessoa->telefone = fone($pessoa->telefone);

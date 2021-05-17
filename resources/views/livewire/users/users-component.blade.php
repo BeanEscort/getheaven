@@ -10,7 +10,9 @@
                 </div> 
             </div>
         </div>
+	@if(auth()->user()->tipo === 'Admin')
         @include('common.search', ['create' => 'users_create'])      
+	@endif
         <div class="table-responsive">
             <table class="table table-bordered table-hover table-striped table-checkable table-highlight-head mb-4">
                 <thead>
@@ -18,9 +20,10 @@
                         <th class="">NOME</th>
                         
                         <th class="">EMAIL</th>
-                        @can('users_tipo')
-                        <th class="">TIPO</th>
-                        @endcan
+                   	{{-- (tipo') --}}
+                        <th class="">FUNÇÃO</th>
+                       {{-- @endcan --}}
+			
                         <th class="text-center">AÇÕES</th>
                         
                     </tr>
@@ -32,11 +35,15 @@
                     <td><p class="mb-0">{{$r->name}}</p></td>
                     
                     <td>{{$r->email}}</td>
-                    @can('users_tipo')
-                    <td>{{$r->tipo}}</td>
-                    @endcan
+               	    
+                    <td>{{$r->tipo === 'Admin' ? '' : $r->tipo}}</td>
+               
                     <td class="text-center">
-                        @include('common.actions',['edit' => 'users_edit', 'destroy' => 'users_destroy'])
+			@if( $r->tipo !== 'Admin' )
+				@if( auth()->user()->tipo !== $r->tipo)
+                        		@include('common.actions',['edit' => true, 'destroy' => $r->tipo === 'Admin'])
+				@endif
+			@endif
                     </td>
                 </tr>
                 @endforeach

@@ -14,13 +14,15 @@
  					<input wire:model.lazy="email" type="text" class="form-control"  placeholder="correio@gmail.com"> 			
  				</div>
  				<div class="form-group col-lg-4 col-md-4 col-sm-12">
- 					<label >Tipo</label>
+ 					@if(auth()->user()->tipo === 'Admin')
+					<label >Função</label>
  					<select wire:model="tipo" class="form-control text-center">
  						<option value="Escolha" disabled="">Escolha</option>                         
  						<option value="Admin">Admin</option>                         
  						<option value="Gerente">Gerente</option>                         
  						<option value="Usuário">Usuário</option>                         
- 					</select>			               
+ 					</select>			   
+					@endif            
  				</div>
  				<div class="form-group col-lg-4 col-md-4 col-sm-12"> 					
  					<label >Password</label>
