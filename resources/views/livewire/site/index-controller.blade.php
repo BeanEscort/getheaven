@@ -142,8 +142,9 @@
                         </x-jet-button>
                     @endif
                      --}}
+		    @if(intval($latlong)!=0)
 		    <a class="btn btn-primary" href="https://www.google.pt/maps?q={{$latlong}}&zoom=16" target="_blank">Google Maps</a>
-
+		    @endif
                     <x-jet-secondary-button wire:click="$toggle('modalFormVisible')" wire:loading.attr="disabled">
                         {{ __('Fechar') }}
                     </x-jet-secondary-button>

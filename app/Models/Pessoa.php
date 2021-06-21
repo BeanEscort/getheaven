@@ -69,4 +69,10 @@ class Pessoa extends Model
     {
         return $this->belongsTo(Taxa::class);
     }
+    
+    public function cemiterio($id)
+    {
+	$cemiterio = Cemiterio::findOrFail($id);
+	return $cemiterio->nome;
+    }
 }

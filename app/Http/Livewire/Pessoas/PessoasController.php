@@ -12,7 +12,7 @@ use \App\Models\Causa;
 use \App\Models\Pessoa;
 use Livewire\Component;
 use \App\Models\Cemiterio;
-use App\Models\Cliente;
+use \App\Models\Cliente;
 use \App\Models\Funeraria;
 use App\Traits\GenericTrait;
 use Illuminate\Support\Facades\App;

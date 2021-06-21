@@ -1,4 +1,5 @@
 <div class="widget-content-area">
+@if($action == 2)
     <div class="widget-one">
         <form action="">
             <h3>Inserir / Editar Cliente</h3>
@@ -93,12 +94,20 @@
 
             </div>
             <div class="row">
-                <div class="col-md-12">
-                <hr />
-                    <h3>Dados do Falecido</h3>
-                    <hr />
-                </div>
-
+		<div class="col-12">
+                	<hr />
+			<div class="col-lg-4 col-md-4 col-sm-12">
+                    		<h3>Dados do Falecido</h3>
+			</div>
+			<div class="col-lg-2 col-md-2 col-sm-12 text-right mr-1">
+				<button type="button" wire:click.prevent="$set('action', 3)" class="btn btn-primary btn-lg btn-block">
+					Consulta Sepultura
+				</button>
+			</div>
+			<hr />
+		</div>
+	    </div>
+    	    <div class="row">
                 <div class="form-group col-lg-2 col-md-2 col-sm-4">
                     <label for="">QUADRA</label>
                     <input type="text" wire:keydown.enter='testaQuadra()' wire:model.lazy="quadra" class="form-control text-center  @error('quadra') is-invalid @enderror" maxlength="6"
@@ -318,7 +327,9 @@
         @include('livewire.requerimento.modaltaxa')
 
     </div>
-
+@elseif($action == 3)
+@include('livewire.requerimento.buscaPessoa')
+@endif
 </div>
 
 <script>

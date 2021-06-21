@@ -23,7 +23,7 @@
             </div>
             <div class="form-group col-lg-2 col-md-2 col-sm-8 mt-2">
                 <label for="">PROCESSO</label>
-                <input type="text" class="form-control" wire:model="processo" wire:blur="verificaProcesso()">
+                <input type="text" class="form-control" wire:model.lazy="processo" wire:blur="verificaProcesso()">
             </div>
             <div class="form-group col-lg-2 col-md-2 col-sm-4 mt-2">
                 <label for="">PAGO?</label>
@@ -72,7 +72,7 @@
 
             <div class="form-group col-lg-3 col-md-3 col-sm-12 mb-8">
                 <label for="">CPF/CNPJ Cliente</label>
-                <input type="text" class="form-control" wire:model.lazy="cpf_cliente" wire:blur="Cpf()">
+                <input type="text" class="form-control" wire:keydown.enter = "Cpf()"  wire:model.lazy="cpf_cliente" wire:blur="Cpf()">
             </div>
 
 

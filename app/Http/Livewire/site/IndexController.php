@@ -59,7 +59,7 @@ class IndexController extends Component
 		if($pesqNome===1){
 		  $info = Pessoa::where('nome', 'like', '%'.$this->search.'%')
 			->where('cemiterio_id', '=', $this->cemiterio_id)->orderBy('dt_obito', 'desc')->paginate(6);
-		} else if($pesqNome=2){
+		} else if($pesqNome===2){
 		 $info = Pessoa::where('numero', '=', $this->search)
 			 ->where('cemiterio_id', '=', $this->cemiterio_id)->orderBy('dt_obito', 'desc')->paginate(6);
 		} else  

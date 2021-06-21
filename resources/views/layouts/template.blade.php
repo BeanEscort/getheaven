@@ -100,13 +100,13 @@
                         <a href="#components" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-printer"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
-                                <span>REQUERIMENTOS</span>
+                                <span>ATENDIMENTO</span>
                             </div>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
                         </a>
                         <ul class="collapse submenu list-unstyled" id="components" data-parent="#topAccordion">
                             <li>
-                                <a href="{{ url('requerimento') }}">SEPULTAMENTO </a>
+                                <a href="{{ url('requerimento') }}">REQUERIMENTO </a>
                             </li>
                             <li>
                             {{--  <a href="{{ url('reservas') }}"> RESERVA  </a> --}}
@@ -120,16 +120,16 @@
                         <a href="#components" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-                                <span>CONFIG</span>
+                                <span>CONFIGURAÇÃO</span>
                             </div>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
                         </a>
                         <ul class="collapse submenu list-unstyled" id="components" data-parent="#topAccordion">
                             <li>
-                                {{-- <a href="{{ url('ufirs') }}">UFIR </a> --}}
+                                <a href="{{ url('ufirs') }}">UFIR </a>
                             </li>
                             <li>
-                                <a href="{{ url('taxas') }}"> TAXAS  </a>
+                               {{-- <a href="{{ url('taxas') }}"> TAXAS  </a> --}}
                             </li>
                             @can('permissoes')
                             <li>
@@ -141,10 +141,10 @@
 
 
                     <li class="menu single-menu">
-                        <a href="{{ url('ufirs') }}" >
+                        <a href="{{ url('taxas') }}" >
                             <div class="">
                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                                <span>UFIR</span>
+                                <span>TAXAS</span>
                             </div>
 
                         </a>
@@ -191,9 +191,11 @@
                         </a>
                         <ul class="collapse submenu list-unstyled" id="page"  data-parent="#topAccordion">
                             <li>
-                                <a href="{{ url('report') }}"> Filtro por data Óbito </a>
+                                <a href="{{ url('report') }}"> POR DATA ÓBITO</a>
                             </li>
-
+			   <li>
+			{{-- 	<a href=" url('list.clientes') }}" CLIENTES </a> --}}
+			   </li>
 
                         </ul>
                     </li>

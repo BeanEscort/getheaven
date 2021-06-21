@@ -19,7 +19,7 @@ use App\Models\Ufir;
 
 class RequerimentoController extends Component
 {
-    use WithPagination;
+	use WithPagination;
 	use GenericTrait;
 
     public $cpf, $data_cadastro, $nomeCliente, $cep, $logradouro, $complemento;
@@ -28,9 +28,9 @@ class RequerimentoController extends Component
 
     public $cnome = null, $tnome = null, $fnome = null,$nomePessoa, $cliente_id=null, $mae, $idade, $quadra, $numero;
     public $tp_sepultura='Escolha', $taxa_id='Escolha', $valor_taxa, $total_ufir, $ufir, $ufir_id;
-    public $dt_obito, $dt_sepultamento, $tipo, $tipotaxa, $hora_sepultamento, $latitude;
-    public $longitude, $obs, $cemiterio_id='Escolha', $funeraria_id='Escolha';
-    public $cemiterios, $funerarias, $tipos, $taxas, $modalFormVisible = false;
+    public $dt_obito, $data_obito, $dt_sepultamento, $tipo, $tipotaxa, $hora_sepultamento, $latitude;
+    public $longitude, $obs, $cemiterio_id='Escolha', $funeraria_id='Escolha',$pessoas, $nome;
+    public $cemiterios, $funerarias, $tipos, $taxas, $modalFormVisible = false, $buscarPessoa, $cemiterio;
     private $pagination = 5;
     public $modalFunerariaVisible = false;
     public $modalTipoVisible = false;
@@ -45,12 +45,13 @@ class RequerimentoController extends Component
         } else {
             $this->ufir = 0.00;
         }
-
+	$this->buscarPessoa='';
     }
 
 
     public function render()
     {
+	$pessoas = null;
         $this->clientes = Cliente::get();
 /*	 $qtd = $this->clientes->count();
 	for ($i = 1; $i<$qtd ; $i++) {
@@ -88,6 +89,15 @@ class RequerimentoController extends Component
         $this->tipos = Tipo::get();
         if(auth()->user())
         $this->user_id = auth()->user()->id;
+
+	if(strlen($this->buscarPessoa) > 0){
+		$pessoas = Pessoa::where('nome', 'like', '%'.$this->buscarPessoa . '%')
+				->orWhere('numero', '=', $this->buscarPessoa)
+				->orderBy('dt_obito', 'desc')->get();
+
+	}
+
+	$this->pessoas = $pessoas;
 
         if(strlen($this->search) > 1){
             if(intval($this->search) > 0){
@@ -244,7 +254,10 @@ class RequerimentoController extends Component
     {
         if(strlen($this->cpf) <=0) return;
 
-        if($this->selected_cpf) return;
+        if($this->selected_cpf){ 
+		$this->cpf = $this->CpfCli($this->selected_cpf);
+		return;
+	}
 
         $this->cpf = preg_replace('/[^0-9]/', '', $this->cpf);
 
@@ -263,20 +276,25 @@ class RequerimentoController extends Component
         $info = Cliente::where('cpf', $this->cpf)->first();
 
             if($info){
-
-                    $this->selected_cpf = $info->cpf;
-                    $this->emit('msgok', 'Cliente já existe... Atualizando...');
+		    $this->cpf = $this->CpfCli($info->cpf);
+		    $this->emit('msgok', 'Cliente já existe... Atualizando...');
                     $this->editCliente($info->id);
-
+		    $this->cpf_cliente = $info->cpf;
+		    
             }
             else {
                 $cpf = $this->cpf;
                 $this->resetCliente();
                 $this->cpf = $this->CpfCli($cpf);
+		$this->cpf_cliente = $this->cpf;
             }
 
     }
 
+    public function buscarPessoa()
+    {
+	//
+    }
 
     public function updatingSearch()
     {
@@ -293,7 +311,7 @@ class RequerimentoController extends Component
     function resetCliente()
     {
         $this->cpf = '';
-        $this->data_cadastro = null;
+        $this->data_cadastro = date_format(now(), 'Y-m-d');
         $this->nomeCliente = '';
         $this->cep = '';
         $this->logradouro = '';
@@ -345,7 +363,7 @@ class RequerimentoController extends Component
             $this->selected_cpf     = $cliente->cpf;
 
             $this->cpf              = $cliente->cpf;
-
+	    $this->cpf_cliente	    = $cliente->cpf;
             $this->data_cadastro    = $cliente->data_cadastro;
             $this->nomeCliente      = $cliente->nome;
             $this->cep              = $cliente->cep;
@@ -366,7 +384,6 @@ class RequerimentoController extends Component
         $record = Pessoa::findOrFail($id);
 
         $this->selected_id = $id;
-	$this->cpf_cliente = $record->cpf_cliente;
 
 	if($record->cliente_id)
         	$this->cliente_id = $record->cliente_id;
@@ -390,7 +407,6 @@ class RequerimentoController extends Component
         $this->funeraria_id = $record->funeraria_id;
         $this->taxa_id = $record->taxa_id;
         $this->valor_pago = $record->valor_pago;
-
 
         $this->latitude = $record->latitude;
         $this->longitude = $record->longitude;
@@ -617,12 +633,13 @@ class RequerimentoController extends Component
     public function preencheObs(){
         $tx = TAXA::find($this->taxa_id);
         $end = $this->logradouro.', '.$this->nro;
-
+	$obs = '';
         $bai = 'Bairro: '.$this->bairro.' - '.$this->localidade.'-'.$this->uf;
         $tel = 'Telefone(s): '.$this->telefone.' '.$this->celular1.' '.$this->celular2;
-
-        $obs = 'TAXA (R$'.number_format($tx->valor,2).') REFERENTE A '.$tx->tipo;
-        $obs = $obs.'<br>'.$end.'<br>'.$bai.'<br>'.$tel;
+        if($tx)
+        	$obs = 'TAXA (R$'.number_format($tx->valor,2).') REFERENTE A '.$tx->tipo;
+	if(trim($end)!=',')
+	        $obs = $obs.'<br>'.$end.'<br>'.$bai.'<br>'.$tel;
 
         $this->obs = trim($obs);
 
@@ -693,8 +710,59 @@ class RequerimentoController extends Component
 
 
         $this->cpf = $this->CpfCli($this->cpf);
-
+	$this->cpf_cliente = $this->cpf;
 
      }
+	protected $listeners = [
+		'TransportarDados' => 'TransportarDados',
+	];
+
+	public function limparPessoa(){
+		$this->nome = '';
+		$this->quadra = '';
+		$this->numero = '';
+
+		$this->latitude = '';
+		$this->longitude = '';
+		$this->tp_sepultura = 'Escolha';
+		$this->data_obito = '';
+		$this->cemiterio_id = 'Escolha';
+		$this->cnome = '';
+	}
+
+	public function Voltar(){
+		$this->limparPessoa();
+		$this->action = 2;
+	}
+
+	public function TransportarDados($id)
+	{
+		$pessoa = Pessoa::find($id);
+
+		$this->nome = $pessoa->nome;
+		$this->quadra = trim($pessoa->quadra);
+		$this->numero = $pessoa->numero;
+		$this->latitude = $pessoa->latitude;
+		$this->longitude = $pessoa->longitude;
+		$this->tp_sepultura = $pessoa->tp_sepultura;
+		$this->data_obito = date_format($pessoa->dt_obito, 'd-m-Y');
+		$this->cemiterio_id = $pessoa->cemiterio_id;
+		$this->cpf_cliente = $this->cpf;
+		
+		$cemiterio = Cemiterio::findOrFail($this->cemiterio_id);
+		$this->cnome = $cemiterio->nome;
+
+	}
+
+	public function mostrarPessoa($pessoa)
+	{
+		$this->limparPessoa();
+		$this->pessoas = '';
+		$this->buscarPessoa = '';
+		$pessoaJson = json_decode($pessoa);
+
+		$this->TransportarDados($pessoaJson->id);
+	}
 
 }
+

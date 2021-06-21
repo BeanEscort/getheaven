@@ -90,6 +90,8 @@
     </div>
     @elseif($action == 2)
     @include('livewire.requerimento.form')
+    @elseif($action == 3)
+    @include('livewire.requerimento.buscaPessoa')
     @endif
 </div>
     <script type="text/javascript">
