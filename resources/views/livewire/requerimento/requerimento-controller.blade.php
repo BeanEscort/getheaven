@@ -53,7 +53,7 @@
                                {{-- @can('requerimentos_pdf') --}}
                                     <li>
                                         <a href="{!! url('geraPdf', $r->id) !!} " target="_blank" data-toggle="tooltip"
-                                            data-placement="top" title="Edit"><svg xmlns="http://www.w3.org/2000/svg"
+                                            data-placement="top" title="Imprimir"><svg xmlns="http://www.w3.org/2000/svg"
                                                 width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                 stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                                 stroke-linejoin="round" class="feather feather-printer">
@@ -68,7 +68,7 @@
                                {{-- @can('requerimento_edit')--}}
                                     <li>
                                         <a href="javascript:void(0);" wire:click="edit({{$r->id}})"
-                                            data-toggle="tooltip" data-placement="top" title="Edit"><svg
+                                            data-toggle="tooltip" data-placement="top" title="Alterar"><svg
                                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                                 stroke-linecap="round" stroke-linejoin="round"

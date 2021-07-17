@@ -167,13 +167,14 @@ class UsersComponent extends Component
     {
     	if ($id) {
     		$record = User::where('id', $id);
-		try {
-    			$record->delete();
-			$this->resetInput();
-		} catch (Exception $e) {
-			session()->flash('danger', 'Não foi possível excluir este usuário, existem dados relacionados a ele!');
-			return false;
+    		$delete = $record->delete();
+
+		if($delete){
+			$this->emit('msgok', 'Usuário eliminado com êxito!');
+		} else {
+			$this->emit('', 'Não é possivel excluir categorieste usuário  xistem produtos relacionados a ela');
 		}
+    		$this->resetInput();
     	}
 
     }

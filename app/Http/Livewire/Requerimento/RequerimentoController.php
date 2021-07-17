@@ -385,12 +385,14 @@ class RequerimentoController extends Component
 
         $this->selected_id = $id;
 
-	if($record->cliente_id)
+	if($record->cliente_id){
+		$this->cpf_cliente = $record->cpf_do_cliente;
         	$this->cliente_id = $record->cliente_id;
-	else if($record->cpf_cliente)
+	}
+	else if($record->cpf_do_cliente)
 	{
-	 	$cliente = Cliente::where('cpf', $record->cpf_cliente)->first();
-//dd($cliente->id);
+	 	$cliente = Cliente::where('cpf', $record->cpf_do_cliente)->first();
+//dd($record->cpf_do_cliente);
 		$this->cliente_id = $cliente->id;
 	}
 
@@ -495,12 +497,13 @@ class RequerimentoController extends Component
         $this->taxas = Taxa::find($this->taxa_id);
         $this->valor_taxa = $this->taxas->valor;
 	$this->latlong();
+
         if($this->selected_id <= 0)
         {
             $record = Pessoa::create([
             'nome' => $this->nomePessoa,
             'cliente_id' => $this->cliente_id,
-	    'cpf_cliente' => $this->cpf_cliente,
+	    'cpf_do_cliente' => $this->cpf_cliente,
             'mae' => $this->mae,
             'idade' => $this->idade,
             'quadra' => $this->converteMaiusculo($this->quadra),
@@ -527,12 +530,12 @@ class RequerimentoController extends Component
         }
         else{
             $record = Pessoa::find($this->selected_id);
-            if($this->hora_sepultamento == "") $this->hora_sepultamento = null;
-	
+            if($this->hora_sepultamento == "") $this->hora_sepultamento = null;	
+
             $record->update([
             'nome' => $this->nomePessoa,
             'cliente_id' => $this->cliente_id,
-	    'cpf_cliente' => $this->cpf_cliente,
+	    'cpf_do_cliente' => $this->cpf_cliente,
             'mae' => $this->mae,
             'idade' => $this->converteMaiusculo($this->idade),
             'quadra' => $this->converteMaiusculo($this->quadra),
@@ -555,7 +558,9 @@ class RequerimentoController extends Component
             'taxa_id' => $this->taxa_id,
 
             'user_id' => $this->user_id,
+
             ]);
+
         }
 
 

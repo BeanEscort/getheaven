@@ -19,6 +19,7 @@ class Pessoa extends Model
 
         'nome',         
         'cliente_id',
+	'cpf_do_cliente',
         'mae' ,
         'pai' ,
         'idade' ,

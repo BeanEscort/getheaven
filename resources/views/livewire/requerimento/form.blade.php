@@ -99,12 +99,15 @@
 			<div class="col-lg-4 col-md-4 col-sm-12">
                     		<h3>Dados do Falecido</h3>
 			</div>
+			<hr />
+			@if(!$selected_id)
 			<div class="col-lg-2 col-md-2 col-sm-12 text-right mr-1">
 				<button type="button" wire:click.prevent="$set('action', 3)" class="btn btn-primary btn-lg btn-block">
 					Consulta Sepultura
 				</button>
 			</div>
 			<hr />
+			@endif
 		</div>
 	    </div>
     	    <div class="row">

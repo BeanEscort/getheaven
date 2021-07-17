@@ -127,7 +127,7 @@
             </x-jet-responsive-nav-link>            
         </div>
         <div class="pt-2 pb-3 space-y-2">
-            <x-jet-responsive-nav-link href="{{ route('empresas.index') }}" >
+            <x-jet-responsive-nav-link href="{{ route('pages') }}" >
                 {{ __('Empresas') }}
             </x-jet-responsive-nav-link>            
         </div>

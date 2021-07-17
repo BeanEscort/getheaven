@@ -11,7 +11,7 @@
             </div>
         </div>
 	@if(auth()->user()->tipo === 'Admin')
-        @include('common.search', ['create' => 'users_create'])      
+	        @include('common.search', ['create' => 'users_create'])
 	@endif
         <div class="table-responsive">
             <table class="table table-bordered table-hover table-striped table-checkable table-highlight-head mb-4">
@@ -39,8 +39,9 @@
                     <td>{{$r->tipo === 'Admin' ? '' : $r->tipo}}</td>
                
                     <td class="text-center">
-			@if( $r->tipo !== 'Admin' )
-				@if( auth()->user()->tipo !== $r->tipo)
+
+			@if( auth()->user()->tipo === 'Admin' )
+				@if( auth()->user()->email !== $r->email)
                         		@include('common.actions',['edit' => true, 'destroy' => $r->tipo === 'Admin'])
 				@endif
 			@endif
@@ -77,9 +78,13 @@
     },
     function() {
         console.log('ID', id);
-        window.livewire.emit('deleteRow', id)    
-        toastr.success('info', 'Registro eliminado com êxito')
-        swal.close()   
+	try {
+        if(window.livewire.emit('deleteRow', id))    
+        	toastr.success('info', 'Registro eliminado com êxito')
+        swal.close()
+	} catch (error){
+		toastr.warning('Erro', 'Ocorreu um erro')
+	}   
     })
   
     }
