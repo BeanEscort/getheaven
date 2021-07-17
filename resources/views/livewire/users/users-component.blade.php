@@ -81,10 +81,10 @@
 	try {
         if(window.livewire.emit('deleteRow', id))    
         	toastr.success('info', 'Registro eliminado com êxito')
-        swal.close()
 	} catch (error){
 		toastr.warning('Erro', 'Ocorreu um erro')
-	}   
+	}
+	swal.close()
     })
   
     }

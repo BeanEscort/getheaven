@@ -4,10 +4,11 @@ namespace App\Http\Livewire\Users;
 
 use Livewire\WithPagination;
 use Livewire\Component;
-
+use App\Exception\Handler;
 use App\Traits\GenericTrait;
+use Illuminate\Database\QueryException;
 use \App\Models\User; 
-
+use DB;
 
 class UsersComponent extends Component
 {
@@ -31,9 +32,8 @@ class UsersComponent extends Component
 
     public function render()
     {
-
     	if(strlen($this->search) > 0)
-    	{    		
+    	{
     		$info = User::where('name', 'like', '%' .  $this->search . '%')
     			->paginate($this->pagination);
     		
@@ -165,17 +165,53 @@ class UsersComponent extends Component
    //método para eliminar un registro dado
     public function destroy($id)
     {
+
+	DB::beginTransaction();
+
+    try {
+
+        $usuario = User::findOrFail($id);
+
+        //1
+        $usuario->forceDelete();
+        DB::rollback();
+
+        //2
+        $usuario = User::findOrFail($id);
+        $usuario->delete();
+
+        //3
+        DB::commit();
+
+        //4
+    } catch (QueryException $e) {
+        DB::rollback();
+        $usuario = array('mensagem' => 'impossível excluir esse dado');
+	session()->flash('danger', 'N      o foi poss      vel excluir este usu      rio, existem dados relacionados a ele!');
+	$this->emit('msg-error', 'Não foi possível excluir este usuário, existem dados relacionados a ele!');
+    }
+
+        return $usuario;
+
+/*
+
     	if ($id) {
-    		$record = User::where('id', $id);
+    		$record = User::where('id', $id)->first();
+
 		try {
-    			$record->delete();
+
+    			if( $record->delete()){
+
+				session()->flash('danger', 'N      o foi poss      vel excluir este usu      rio, existem dados relacionados a ele!');
+                        	return false;
+			}
 			$this->resetInput();
 		} catch (Exception $e) {
 			session()->flash('danger', 'Não foi possível excluir este usuário, existem dados relacionados a ele!');
 			return false;
 		}
     	}
-
+*/
     }
   
 }
