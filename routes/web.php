@@ -37,7 +37,7 @@ Route::domain('admin.getheaven.com.br')->middleware(['auth'])->group(function() 
     });
 });
 
-Route::view('/404-tenant', 'errors.404-tenant')->name('404.tenant');
+Route::view('/apresentacao', 'errors.apresentacao')->name('apresentacao');
 
 Route::domain('{tenant}.getheaven.com.br')->middleware('tenant')->group(function(){
     Route::get('/', function ($tenant) {        

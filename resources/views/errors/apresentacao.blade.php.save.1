@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Gestão de Cemitérios</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+        <!-- Styles -->
+        <style>
+            /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normali>
+        </style>
+
+
+        <style>
+            body {
+                font-family: 'Nunito';
+            }
+        </style>
+    </head>
+    <body class="antialiased">
+
+	<div><!---->
+	<a href="https://wa.me/5562993207235" title="Open WhatsApp" target="_blank" class="whatsApp-bubble"><svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><circle cx="32" cy="32" r="32" fill="#4AA461"></circle><path d="M11.375 52.625L14.2745 42.0323C12.4853 38.9317 11.5452 35.4169 11.5469
+            31.8127C11.552 20.5445 20.7216 11.375 31.988 11.375C37.4553 11.3767 42.5875 13.5062 46.4478 17.37C50.3064
+            21.2337 52.4308 26.3694 52.4291 31.8316C52.4239 43.1014 43.2544 52.2709 31.988 52.2709C28.5677 52.2692 25.1972
+            51.4116 22.2117 49.7822L11.375 52.625ZM22.7136 46.0817C25.5942 47.7919 28.3442 48.8162 31.9811 48.818C41.3448 48.818
+            48.9727 41.197 48.9778 31.8281C48.9813 22.4403 41.3895 14.8297 31.9948 14.8262C22.6242 14.8262 15.0016 22.4472 14.9981
+            31.8144C14.9964 35.6386 16.117 38.502 17.9991 41.4978L16.282 47.7678L22.7136 46.0817ZM42.285 36.6905C42.1578 36.4773
+             41.8175 36.3502 41.3053 36.0941C40.7948 35.838 38.2837 34.6022 37.8145 34.432C37.347 34.2619 37.0067 34.1759 36.6647
+             34.6881C36.3244 35.1986 35.3447 36.3502 35.0473 36.6905C34.75 37.0308 34.4509 37.0738 33.9405 36.8177C33.43 36.5616 31.7834
+             36.0236 29.8327 34.2825C28.315 32.9281 27.2889 31.2558 26.9916 30.7436C26.6942 30.2331 26.9606 29.9564 27.215
+             29.702C27.4453 29.4734 27.7255 29.1056 27.9816 28.8066C28.2411 28.5109 28.3253 28.2978 28.4972 27.9558C28.6673
+             27.6155 28.5831 27.3164 28.4542 27.0603C28.3253 26.8059 27.3044 24.2914 26.8798 23.2688C26.4639 22.2736 26.0428
+             22.4077 25.73 22.3922L24.7503 22.375C24.41 22.375 23.8566 22.5022 23.3891 23.0144C22.9216 23.5266 21.6016 24.7606
+             21.6016 27.2752C21.6016 29.7897 23.432 32.2183 23.6864 32.5586C23.9425 32.8989 27.2872 38.0586 32.4108 40.2706C33.6294
+             40.7966 34.5816 41.1111 35.3223 41.3466C36.5461 41.735 37.6598 41.68 38.5398 41.5494C39.5212 41.4033 41.5614 40.3136
+             41.9877 39.1208C42.4139 37.9262 42.4139 36.9036 42.285 36.6905Z" fill="white"></path></svg>
+	</a>
+	</div>
+	<main style="--h1-color: var(--colors-dark); --h1-font-size: 112px; --h1-font-style: normal; --h1-font-family: var(--font-primary); --h1-font-weight: normal; --h1-line-height: 1.2; --h1-m-font-size: 44px; --h1-letter-spacing: normal; --h1-text-transform: none; --h1-text-decoration: none; --h2-color: var(--colors-dark); --h2-font-size: 72px; --h2-font-style: normal; --h2-font-family: var(--font-primary); --h2-font-weight: normal; --h2-line-height: 1.2; --h2-m-font-size: 36px; --h2-letter-spacing: normal; --h2-text-transform: none; --h2-text-decoration: none; --h3-color: var(--colors-dark); --h3-font-size: 48px; --h3-font-style: normal; --h3-font-family: var(--font-primary); --h3-font-weight: normal; --h3-line-height: 1.2; --h3-m-font-size: 32px; --h3-letter-spacing: normal; --h3-text-transform: none; --h3-text-decoration: none; --h4-color: var(--colors-dark); --h4-font-size: 32px; --h4-font-style: normal; --h4-font-family: var(--font-primary); --h4-font-weight: normal; --h4-line-height: 1.2; --h4-m-font-size: 28px; --h4-letter-spacing: normal; --h4-text-transform: none; --h4-text-decoration: none; --h5-color: var(--colors-dark); --h5-font-size: 24px; --h5-font-style: normal; --h5-font-family: var(--font-primary); --h5-font-weight: normal; --h5-line-height: 1.2; --h5-m-font-size: 24px; --h5-letter-spacing: normal; --h5-text-transform: none; --h5-text-decoration: none; --h6-color: var(--colors-dark); --h6-font-size: 20px; --h6-font-style: normal; --h6-font-family: var(--font-primary); --h6-font-weight: normal; --h6-line-height: 1.2; --h6-m-font-size: 20px; --h6-letter-spacing: normal; --h6-text-transform: none; --h6-text-decoration: none; --body-color: var(--colors-dark); --body-font-size: 16px; --body-font-style: normal; --body-font-family: var(--font-secondary); --body-font-weight: 500; --body-line-height: 1.72; --body-m-font-size: 16px; --body-letter-spacing: 0.01em; --body-text-transform: none; --body-text-decoration: none; --font-primary: 'Prosto One', sans-serif; --font-secondary: 'Catamaran', sans-serif; --colors-dark: #111111; --colors-light: #ffffff; --colors-danger: #EA5D5C; --colors-primary: #E6382A; --colors-success: #4dbd74; --colors-warning: #ffc107; --colors-accent-1: #293795; --colors-accent-2: #EFAB41; --colors-grey-100: #F1F1F1; --colors-grey-200: #DDDDDD; --colors-grey-300: #C9C9C9; --colors-grey-400: #B5B5B5; --colors-grey-500: #A1A1A1; --colors-grey-600: #888888; --colors-grey-700: #747474; --colors-grey-800: #565656; --colors-grey-900: #383838; --colors-secondary: #2B2D40; --colors-primary-dark: #C42417; --colors-accent-1-dark: #1E286C; --colors-accent-2-dark: #EB9714; --colors-primary-light: #EB6156; --colors-accent-1-light: #3445BC; --colors-accent-2-light: #F3C172; --colors-primary-accent: #E94C3F; --colors-secondary-dark: #171822; --colors-accent-1-accent: #2E3EA8; --colors-accent-2-accent: #F1B65A; --colors-secondary-light: #40425F; --colors-secondary-accent: #35384F; --nav-link-color: var(--colors-dark); --nav-link-font-size: 16px; --nav-link-font-style: normal; --nav-link-font-family: var(--font-secondary); --nav-link-font-weight: 600; --nav-link-line-height: 1.72; --nav-link-m-font-size: 16px; --nav-link-letter-spacing: normal; --nav-link-text-transform: none; --nav-link-text-decoration: none; --body-large-color: var(--colors-dark); --body-large-font-size: 18px; --body-large-font-style: normal; --body-large-font-family: var(--font-secondary); --body-large-font-weight: 500; --body-large-line-height: 1.72; --body-large-m-font-size: 18px; --body-large-letter-spacing: 0.01em; --body-large-text-transform: none; --body-large-text-decoration: none; --body-small-color: var(--colors-dark); --body-small-font-size: 14px; --body-small-font-style: normal; --body-small-font-family: var(--font-secondary); --body-small-font-weight: 500; --body-small-line-height: 1.72; --body-small-m-font-size: 14px; --body-small-letter-spacing: 0.01em; --body-small-text-transform: none; --body-small-text-decoration: none; --grid-button-primary-color: var(--colors-light); --grid-button-primary-font-size: 14px; --grid-button-primary-padding-x: 32px; --grid-button-primary-padding-y: 14px; --grid-button-primary-font-style: normal; --grid-button-primary-color-hover: var(--colors-light); --grid-button-primary-font-family: var(--font-secondary); --grid-button-primary-font-weight: 700; --grid-button-primary-line-height: 1.72; --grid-button-primary-m-font-size: 14px; --grid-button-primary-m-padding-x: 32px; --grid-button-primary-m-padding-y: 14px; --grid-button-primary-border-color: var(--colors-primary); --grid-button-primary-border-width: 0px; --grid-button-primary-box-shadow-x: 0px; --grid-button-primary-box-shadow-y: 0px; --grid-button-primary-border-radius: 999px; --grid-button-primary-letter-spacing: 0.01em; --grid-button-primary-text-transform: none; --grid-button-primary-box-shadow-blur: 0px; --grid-button-primary-m-border-radius: 999px; --grid-button-primary-text-decoration: none; --grid-button-primary-background-color: var(--colors-primary); --grid-button-primary-box-shadow-color: transparent; --grid-button-primary-box-shadow-spread: 0px; --grid-button-primary-border-color-hover: var(--colors-primary); --grid-button-primary-border-width-hover: 0px; --grid-button-primary-box-shadow-x-hover: 0px; --grid-button-primary-box-shadow-y-hover: 0px; --grid-button-primary-transition-duration: 0.2s; --grid-button-primary-box-shadow-blur-hover: 0px; --grid-button-primary-background-color-hover: var(--colors-primary-accent); --grid-button-primary-box-shadow-color-hover: 0px; --grid-button-primary-box-shadow-spread-hover: 0px; --grid-button-primary-transition-timing-function: ease; --grid-button-secondary-color: var(--colors-primary); --grid-button-secondary-font-size: 14px; --grid-button-secondary-padding-x: 32px; --grid-button-secondary-padding-y: 14px; --grid-button-secondary-font-style: normal; --grid-button-secondary-color-hover: var(--colors-light); --grid-button-secondary-font-family: var(--font-secondary); --grid-button-secondary-font-weight: 700; --grid-button-secondary-line-height: 1.72; --grid-button-secondary-m-font-size: 14px; --grid-button-secondary-m-padding-x: 32px; --grid-button-secondary-m-padding-y: 14px; --grid-button-secondary-border-color: var(--colors-primary); --grid-button-secondary-border-width: 0; --grid-button-secondary-box-shadow-x: 0px; --grid-button-secondary-box-shadow-y: 0px; --grid-button-secondary-border-radius: 999px; --grid-button-secondary-letter-spacing: 0.01em; --grid-button-secondary-text-transform: none; --grid-button-secondary-box-shadow-blur: 0px; --grid-button-secondary-m-border-radius: 999px; --grid-button-secondary-text-decoration: none; --grid-button-secondary-background-color: var(--colors-light); --grid-button-secondary-box-shadow-color: transparent; --grid-button-secondary-box-shadow-spread: 0px; --grid-button-secondary-border-color-hover: transparent; --grid-button-secondary-border-width-hover: 0px; --grid-button-secondary-box-shadow-x-hover: 0px; --grid-button-secondary-box-shadow-y-hover: 0px; --grid-button-secondary-transition-duration: 0.2s; --grid-button-secondary-box-shadow-blur-hover: 0px; --grid-button-secondary-background-color-hover: var(--colors-primary-accent); --grid-button-secondary-box-shadow-color-hover: 0px; --grid-button-secondary-box-shadow-spread-hover: 0px; --grid-button-secondary-transition-timing-function: ease;">
+		<div class="sticky-trigger"></div>
+		<header data-v-1306732a="" class="block-header" style="--background-color: rgba(255, 255, 255, 0); --width: 1240px; --padding-top: 32px; --padding: 32px 16px; --padding-right: 16px; --padding-bottom: 32px; --padding-left: 16px; --logo-width: 171px; --cartIconSize: 24px; --m-logo-width: 112px; --oldContentWidth: 1600px; --menu-item-spacing: 56px; --space-between-menu: 4px; --contrastBackgroundColor: 232323;">
+			<div data-v-1306732a="" class="background" style="--background-color: rgba(255, 255, 255, 0); --m-background-color: rgba(255, 255, 255, 0);"><!---->
+			</div>
+			<div data-v-1306732a="" class="block-header__content" style="--navigation-grid-template-columns: minmax(calc(var(--logo-width) + var(--space-between-menu)), auto) 1fr; --m-navigation-grid-template-columns: 1fr minmax((--m-logo-width, var(--logo-width)), auto) 1fr; --logo-grid-row: 1/2; --m-logo-grid-row: 0/2; --logo-grid-column: 1/2; --m-logo-grid-column: 2/3; --logo-justify-self: flex-start; --m-logo-justify-self: center; --logo-image-object-position: left center; --m-logo-image-object-position: center center; --links-grid-row: 1/2; --m-links-grid-row: 2/2; --links-grid-column: 2/3; --m-links-grid-column: 1/4; --cart-grid-row: 1/2; --cart-grid-column: 3/3; --logo-spacing: 0 var(--space-between-menu) 0 0; --m-logo-spacing: 0 0 var(--space-between-menu) 0; --navigation-text-align: right; --m-navigation-text-align: center; --navigation-justify-self: flex-end; --m-navigation-justify-self: center; --hamburgerMenuPositionTop: calc(100% + var(--m-padding-top, var(--padding-top))); --mobileBackground: var(--background-color,  var(--background-image));">
+				<div data-v-cd5cf7a8="" data-v-1306732a="" class="block-header-logo block-header__logo" style="--height: nullpx; --m-height: nullpx; --width: 171px; --m-width: 112px;">
+					<img data-v-cd5cf7a8="" src="{{ asset('images/cemiterioslogo.png') }}" alt="Logo" class="block-header-logo__image">
+				</div>
+				<button data-v-4610f8b1="" data-v-1306732a="" type="button" title="Menu" class="burger block-header__burger" style="--burger-color: var(--nav-link-color);">
+					<span data-v-4610f8b1="" class="burger__bun"></span>
+					<span data-v-4610f8b1="" class="burger__meat"></span>
+					<span data-v-4610f8b1="" class="burger__bun"></span>
+				</button>
+
+			</div>
+		</header>
+		<section data-v-849dd39c="" class="block block--grid" style="--rows: 8; --width: 1224px; --row-gap: 0px; --row-size: 64px; --column-gap: 0px; --grid-width: 1224px; --column-count: 12; --block-padding-top: 0px; --block-padding: 0px 0px; --block-padding-right: 0px; --block-padding-bottom: 0px; --block-padding-left: 0px; --content-width: 1600px; --content-padding: 16px; --m-block-padding: 64px 16px 0px 16px; --oldContentWidth: 1600px; --grid-gap-history: 16px 24px;">
+			<div data-v-849dd39c="" class="background" style="--background-color: var(--colors-light); --m-background-color: var(--colors-light);"><!---->
+			</div>
+			<div data-v-4b0fd226="" data-v-849dd39c="" class="block-grid" blocks="[object Object]" id="z_WTEZ">
+				<div data-v-75861a14="" data-v-4b0fd226="" data-qa="gridtextbox:zbnnzc" class="block-grid-item use-m-margin grid__item" style="--text: left; --align: flex-start; --m-text: left; --justify: center; --position: 2/4/4/9; --m-justify: center; --m-element-margin: 0 0 16px 0; --element-z-index: 1;">
+					<div data-v-c658cc4a="" data-v-75861a14="" class="text-box block-grid-item__component" id="zbNnZc" mobile-block-padding="64px 16px 0px 16px" element-width="510" element-height="128">
+						<h2>
+							<span style="color: var(--colors-dark)">GetHeaven</span>
+						</h2>
+					</div>
+				</div>
+				<div data-v-75861a14="" data-v-4b0fd226="" data-qa="gridtextbox:zp6gox" class="block-grid-item use-m-margin grid__item" style="--text: left; --align: flex-start; --justify: flex-start; --position: 4/4/8/9; --m-element-margin: 0 0 40px 0; --element-z-index: 2;">
+					<div data-v-c658cc4a="" data-v-75861a14="" class="text-box block-grid-item__component" id="zP6gox" mobile-block-padding="64px 16px 0px 16px" element-width="510" element-height="256">
+						<h4>
+							<span style="color: var(--subtitle-color)">Soluções inteligentes para Gestão de Cemitérios</span>
+						</h4>
+					</div>
+				</div>
+				<div data-v-75861a14="" data-v-4b0fd226="" data-qa="gridbutton:zq0avj" class="block-grid-item use-m-margin grid__item" style="--align: flex-start; --justify: flex-start; --position: 6/4/7/9; --m-element-margin: 0 0 40px 0; --grid-button-primary-background: var(--colors-dark); --grid-button-primary-background-active: var(--colors-dark); --element-z-index: 3;">
+					<a data-v-64f7934c="" data-v-75861a14="" href="http://ituiutaba.getheaven.com.br/dash" target="_blank" class="grid-button block-grid-item__component grid-button--primary" id="zq0AVJ" mobile-block-padding="64px 16px 0px 16px" element-width="510" element-height="64">Faça um Teste</a>
+				</div>
+				<div data-v-75861a14="" data-v-4b0fd226="" data-qa="gridtextbox:z5rysg" class="block-grid-item use-m-margin grid__item" style="--text: left; --align: flex-start; --justify: flex-start; --position: 7/4/9/6; --m-element-margin: 0 0 16px 0; --element-z-index: 4;">
+					<div data-v-c658cc4a="" data-v-75861a14="" class="text-box block-grid-item__component" id="z5RySg" mobile-block-padding="64px 16px 0px 16px" element-width="204" element-height="128">
+						<p class="body-small" style="">Para logar entre com usuário <strong>admin@admin.com </strong>e           senha: <strong>password</strong>
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section data-v-849dd39c="" class="block block--grid" style="--rows: 5; --row-gap: 16px; --row-size: 48px; --column-gap: 24px; --grid-width: 1224px; --column-count: 12; --block-padding-top: 16px; --block-padding: 16px 0; --block-padding-right: 0; --block-padding-bottom: 16px; --block-padding-left: 0; --content-width: 1600px; --content-padding: 16px; --m-block-padding: 56px 16px 56px 16px;">
+			<div data-v-849dd39c="" class="background" style="--background-color: var(--colors-light); --m-background-color: var(--colors-light);"><!---->
+			</div>
+			<div data-v-4b0fd226="" data-v-849dd39c="" class="block-grid" blocks="[object Object]" id="z1lTBs">
+				<div data-v-75861a14="" data-v-4b0fd226="" data-qa="gridimage:zzfh-s" class="block-grid-item use-m-margin grid__item" style="--align: center; --justify: center; --position: 1/1/10/17; --object-fit: cover; --m-element-margin: 0 0 16px 0; --element-z-index: 1;">
+					<div data-v-f423d852="" data-v-75861a14="" title="" class="block-grid-item__component image" id="zZFH-s">
+						<img data-v-f423d852="" data-qa="builder-gridelement-image" alt="" src="https://images.unsplash.com/photo-1580557815329-e6612d802a52?ixid=Mnw3MjU4M3wwfDF8c2VhcmNofDUxNnx8Q2VtZXRlcmllc3xlbnwwfHx8fDE2MzI0MDYxNDE&amp;ixlib=rb-1.2.1%3Fw%3D1366&amp;q=70&amp;auto=format&amp;fit=crop&amp;w=1920&amp;h=560" data-src="https://images.unsplash.com/photo-1580557815329-e6612d802a52?ixid=Mnw3MjU4M3wwfDF8c2VhcmNofDUxNnx8Q2VtZXRlcmllc3xlbnwwfHx8fDE2MzI0MDYxNDE&amp;ixlib=rb-1.2.1%3Fw%3D1366&amp;q=70&amp;auto=format&amp;fit=crop&amp;w=1920&amp;h=560" data-srcset="https://images.unsplash.com/photo-1580557815329-e6612d802a52?ixid=Mnw3MjU4M3wwfDF8c2VhcmNofDUxNnx8Q2VtZXRlcmllc3xlbnwwfHx8fDE2MzI0MDYxNDE&amp;ixlib=rb-1.2.1%3Fw%3D1366&amp;q=70&amp;auto=format&amp;fit=crop&amp;w=328&amp;h=96 328w,https://images.unsplash.com/photo-1580557815329-e6612d802a52?ixid=Mnw3MjU4M3wwfDF8c2VhcmNofDUxNnx8Q2VtZXRlcmllc3xlbnwwfHx8fDE2MzI0MDYxNDE&amp;ixlib=rb-1.2.1%3Fw%3D1366&amp;q=70&amp;auto=format&amp;fit=crop&amp;w=656&amp;h=191 656w,https://images.unsplash.com/photo-1580557815329-e6612d802a52?ixid=Mnw3MjU4M3wwfDF8c2VhcmNofDUxNnx8Q2VtZXRlcmllc3xlbnwwfHx8fDE2MzI0MDYxNDE&amp;ixlib=rb-1.2.1%3Fw%3D1366&amp;q=70&amp;auto=format&amp;fit=crop&amp;w=861&amp;h=251 861w,https://images.unsplash.com/photo-1580557815329-e6612d802a52?ixid=Mnw3MjU4M3wwfDF8c2VhcmNofDUxNnx8Q2VtZXRlcmllc3xlbnwwfHx8fDE2MzI0MDYxNDE&amp;ixlib=rb-1.2.1%3Fw%3D1366&amp;q=70&amp;auto=format&amp;fit=crop&amp;w=984&amp;h=287 984w,https://images.unsplash.com/photo-1580557815329-e6612d802a52?ixid=Mnw3MjU4M3wwfDF8c2VhcmNofDUxNnx8Q2VtZXRlcmllc3xlbnwwfHx8fDE2MzI0MDYxNDE&amp;ixlib=rb-1.2.1%3Fw%3D1366&amp;q=70&amp;auto=format&amp;fit=crop&amp;w=1920&amp;h=560 1920w,https://images.unsplash.com/photo-1580557815329-e6612d802a52?ixid=Mnw3MjU4M3wwfDF8c2VhcmNofDUxNnx8Q2VtZXRlcmllc3xlbnwwfHx8fDE2MzI0MDYxNDE&amp;ixlib=rb-1.2.1%3Fw%3D1366&amp;q=70&amp;auto=format&amp;fit=crop&amp;w=3840&amp;h=1120 3840w" data-sizes="(min-width: 920px) 1920px, calc(100vw - 32px)" class="image__image image__image--reset-m-position lazyloaded" sizes="(min-width: 920px) 1920px, calc(100vw - 32px)" srcset="https://images.unsplash.com/photo-1580557815329-e6612d802a52?ixid=Mnw3MjU4M3wwfDF8c2VhcmNofDUxNnx8Q2VtZXRlcmllc3xlbnwwfHx8fDE2MzI0MDYxNDE&amp;ixlib=rb-1.2.1%3Fw%3D1366&amp;q=70&amp;auto=format&amp;fit=crop&amp;w=328&amp;h=96 328w,https://images.unsplash.com/photo-1580557815329-e6612d802a52?ixid=Mnw3MjU4M3wwfDF8c2VhcmNofDUxNnx8Q2VtZXRlcmllc3xlbnwwfHx8fDE2MzI0MDYxNDE&amp;ixlib=rb-1.2.1%3Fw%3D1366&amp;q=70&amp;auto=format&amp;fit=crop&amp;w=656&amp;h=191 656w,https://images.unsplash.com/photo-1580557815329-e6612d802a52?ixid=Mnw3MjU4M3wwfDF8c2VhcmNofDUxNnx8Q2VtZXRlcmllc3xlbnwwfHx8fDE2MzI0MDYxNDE&amp;ixlib=rb-1.2.1%3Fw%3D1366&amp;q=70&amp;auto=format&amp;fit=crop&amp;w=861&amp;h=251 861w,https://images.unsplash.com/photo-1580557815329-e6612d802a52?ixid=Mnw3MjU4M3wwfDF8c2VhcmNofDUxNnx8Q2VtZXRlcmllc3xlbnwwfHx8fDE2MzI0MDYxNDE&amp;ixlib=rb-1.2.1%3Fw%3D1366&amp;q=70&amp;auto=format&amp;fit=crop&amp;w=984&amp;h=287 984w,https://images.unsplash.com/photo-1580557815329-e6612d802a52?ixid=Mnw3MjU4M3wwfDF8c2VhcmNofDUxNnx8Q2VtZXRlcmllc3xlbnwwfHx8fDE2MzI0MDYxNDE&amp;ixlib=rb-1.2.1%3Fw%3D1366&amp;q=70&amp;auto=format&amp;fit=crop&amp;w=1920&amp;h=560 1920w,https://images.unsplash.com/photo-1580557815329-e6612d802a52?ixid=Mnw3MjU4M3wwfDF8c2VhcmNofDUxNnx8Q2VtZXRlcmllc3xlbnwwfHx8fDE2MzI0MDYxNDE&amp;ixlib=rb-1.2.1%3Fw%3D1366&amp;q=70&amp;auto=format&amp;fit=crop&amp;w=3840&amp;h=1120 3840w" width="1920" height="560">
+					</div>
+				</div>
+			</div>
+		</section>
+		<section data-v-849dd39c="" class="block block--grid" style="--cols: 12; --rows: 18; --width: 1224px; --m-rows: 1; --col-gap: 24px; --row-gap: 16px; --row-size: 48px; --column-gap: 24px; --grid-width: 1224px; --column-count: 12; --block-padding-top: 16px; --block-padding: 16px 0 16px 0; --block-padding-right: 0; --block-padding-bottom: 16px; --block-padding-left: 0; --content-width: 1600px; --content-padding: 16px; --m-block-padding: 40px 16px 40px 16px; --oldContentWidth: 1600px;">
+			<div data-v-849dd39c="" class="background" style="--background-color: var(--colors-light); --m-background-color: var(--colors-light);"><!---->
+			</div>
+			<div data-v-4b0fd226="" data-v-849dd39c="" class="block-grid" blocks="[object Object]" id="zX-_M2">
+				<div data-v-75861a14="" data-v-4b0fd226="" data-qa="gridtextbox:z2duds" class="block-grid-item use-m-margin grid__item" style="--text: center; --align: flex-start; --justify: center; --position: 2/5/4/13; --m-element-margin: 0 0 16px 0; --element-z-index: 1;">
+					<div data-v-c658cc4a="" data-v-75861a14="" class="text-box block-grid-item__component" id="z2dUDs" mobile-block-padding="40px 16px 40px 16px" element-width="808" element-height="112">
+						<h3>
+							<span style="color: var(--colors-dark)">Apresentação Real</span>
+						</h3>
+					</div>
+				</div>
+				<div data-v-75861a14="" data-v-4b0fd226="" data-qa="gridtextbox:zu2sd-" class="block-grid-item use-m-margin grid__item" style="--text: center; --align: flex-start; --justify: flex-start; --position: 4/7/6/11; --m-element-margin: 0 0 24px 0; --element-z-index: 2;">
+					<div data-v-c658cc4a="" data-v-75861a14="" class="text-box block-grid-item__component" id="zu2sd-" mobile-block-padding="40px 16px 40px 16px" element-width="392" element-height="112">
+						<p class="body" style="">
+							<span style="color: var(--colors-dark)">Prontos para entregar serviços de excelência no apoio ao luto!</span>
+						</p>
+					</div>
+				</div>
+                    		<div data-v-75861a14="" data-v-4b0fd226="" data-qa="gridvideo:z4i721" class="block-grid-item use-m-margin grid__item" style="--align: center; --justify: center; --position: 6/3/17/15; --element-z-index: 3;">
+					<div data-v-52c6149e="" data-v-75861a14="" class="video block-grid-item__component" id="z4I721" mobile-block-padding="40px 16px 40px 16px" element-width="1224" element-height="688">
+						<iframe data-v-52c6149e="" src="https://player.vimeo.com/video/594896558?playlist=594896558&amp;autoplay=0&amp;controls=1&amp;loop=0&amp;autopause=0&amp;playsinline=1&amp;muted=0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" class="video__frame" width="100%" height="100%">
+						</iframe>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section data-v-849dd39c="" class="block block--grid" style="--rows: 7; --width: 1224px; --row-gap: 16px; --row-size: 48px; --column-gap: 24px; --grid-width: 1224px; --column-count: 12; --block-padding-top: 16px; --block-padding: 16px 0px 16px 0px; --block-padding-right: 0px; --block-padding-bottom: 16px; --block-padding-left: 0px; --content-width: 1600px; --content-padding: 16px; --m-block-padding: 40px 16px 40px 16px; --oldContentWidth: 1600px;">
+			<div data-v-849dd39c="" class="background" style="--background-color: var(--colors-light); --m-background-color: var(--colors-light);"><!---->
+			</div>
+			<div data-v-4b0fd226="" data-v-849dd39c="" class="block-grid" blocks="[object Object]" id="zJ6vkG">
+				<div data-v-75861a14="" data-v-4b0fd226="" data-qa="gridtextbox:z87osy" class="block-grid-item use-m-margin grid__item" style="--text: left; --align: flex-start; --justify: center; --position: 2/4/3/9; --m-element-margin: 0 0 16px 0; --element-z-index: 1;">
+					<div data-v-c658cc4a="" data-v-75861a14="" class="text-box block-grid-item__component" id="z87Osy" mobile-block-padding="40px 16px 40px 16px" element-width="496" element-height="48">
+						<p class="body" style="">
+							<span style="color: var(--colors-dark)">Nosso Lema</span>
+						</p>
+					</div>
+				</div>
+				<div data-v-75861a14="" data-v-4b0fd226="" data-qa="gridtextbox:z0ldgp" class="block-grid-item use-m-margin grid__item" style="--text: left; --align: flex-start; --justify: flex-start; --position: 3/4/7/8; --m-element-margin: 0 0 24px 0; --element-z-index: 2;">
+					<div data-v-c658cc4a="" data-v-75861a14="" class="text-box block-grid-item__component" id="z0ldgp" mobile-block-padding="40px 16px 40px 16px" element-width="392" element-height="240">
+						<h3>
+							<span style="color: var(--colors-dark)">+Tecnologia e +Soluções para +Qualidade</span>
+						</h3>
+					</div>
+				</div>
+				<div data-v-75861a14="" data-v-4b0fd226="" data-qa="gridtextbox:zqxo2d" class="block-grid-item use-m-margin grid__item" style="--text: justify; --align: flex-start; --justify: flex-start; --position: 3/10/9/14; --m-element-margin: 0 0 16px 0; --element-z-index: 3;">
+					<div data-v-c658cc4a="" data-v-75861a14="" class="text-box block-grid-item__component" id="zqxo2D" mobile-block-padding="40px 16px 40px 16px" element-width="392" element-height="368">
+						<p class="body" style="">
+							<span style="color: var(--colors-dark)">Tradicionalmente as informações de jazigos nos cemitérios, encontram-se em livros de registros, nem sempre bem conservados. Governos anteriores, via de regra, também não dispensaram o merecido tratamento às informações, não raro, havendo duplicidade de escrituração e dificuldade na localização de túmulos.</span>
+						</p>
+						<p class="body" style="">Por isso, nasceu a GETHEAVEN para solucionar questões de tais naturezas, utilizando técnicas de processamento, para melhorias na administração dos cemitérios.
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section data-v-849dd39c="" class="block block--grid" style="--cols: 12; --rows: 11; --width: 1224px; --m-rows: 1; --col-gap: 24px; --row-gap: 16px; --row-size: 48px; --column-gap: 24px; --grid-width: 1224px; --column-count: 12; --block-padding-top: 16px; --block-padding: 16px 0 16px 0; --block-padding-right: 0; --block-padding-bottom: 16px; --block-padding-left: 0; --content-width: 1600px; --content-padding: 16px; --m-block-padding: 40px 16px 40px 16px; --oldContentWidth: 1600px;">
+			<div data-v-849dd39c="" class="background" style="--background-color: var(--colors-light); --m-background-color: var(--colors-light);"><!---->
+			</div>
+			<div data-v-4b0fd226="" data-v-849dd39c="" class="block-grid" blocks="[object Object]" id="zq9P9D">
+				<div data-v-75861a14="" data-v-4b0fd226="" data-qa="gridtextbox:ziuwxp" class="block-grid-item use-m-margin grid__item" style="--text: left; --align: flex-start; --justify: center; --position: 2/10/5/15; --m-element-margin: 0 0 32px 0; --element-z-index: 1;">
+					<div data-v-c658cc4a="" data-v-75861a14="" class="text-box block-grid-item__component" id="ziUWxp" mobile-block-padding="40px 16px 40px 16px" element-width="496" element-height="176">
+						<h5>
+							<span style="color: var(--colors-dark)">Entre em contato</span>
+						</h5>
+						<p class="body-large" style="">
+							<span style="color: var(--colors-dark)">E faça seu orçamento sem compromisso</span>
+						</p>
+					</div>
+				</div>
+				<div data-v-75861a14="" data-v-4b0fd226="" data-qa="gridform:zljz1w" class="block-grid-item use-m-margin grid__item block-grid--overflow-visible" style="--justify: center; --position: 4/10/11/15; --formSpacing: 22px 10px; --m-element-margin: 0 0 32px 0; --element-z-index: 2;">
+					<div data-v-0cb05154="" data-v-75861a14="" data-qa="builder-gridelement-contactform" class="form block-grid-item__component" style="--formButtonJustifySelf: start;" mobile-block-padding="40px 16px 40px 16px" element-width="496" element-height="432">
+						<form data-v-0cb05154="" name="contactForm" class="form__control">
+							<div data-v-0cb05154="" class="form__control-row">
+								<div data-v-0cb05154="">
+									<div data-v-0f2659ad="" data-v-0cb05154="" class="input input--light">
+										<label data-v-0f2659ad="" class="input__label input__label--light"> Nome* </label>
+										<input data-v-0f2659ad="" placeholder="Seu Nome" type="text" tabindex="0" class="input__component input__component--light"><!---->
+									</div>
+								</div>
+								<div data-v-0cb05154="">
+									<div data-v-0f2659ad="" data-v-0cb05154="" class="input input--light">
+										<label data-v-0f2659ad="" class="input__label input__label--light"> Sobrenome </label>
+										<input data-v-0f2659ad="" placeholder="Seu sobrenome" type="text" tabindex="0" class="input__component input__component--light"><!---->
+									</div>
+								</div>
+							</div>
+							<div data-v-0f2659ad="" data-v-0cb05154="" class="input input--light">
+								<label data-v-0f2659ad="" class="input__label input__label--light"> E-mail* </label>
+								<input data-v-0f2659ad="" placeholder="Endereço de e-mail" type="text" tabindex="0" class="input__component input__component--light"><!---->
+							</div>
+							<div data-v-0f2659ad="" data-v-0cb05154="" class="input input--light">
+								<label data-v-0f2659ad="" class="input__label input__label--light"> Mensagem* </label>
+								<textarea data-v-0f2659ad="" placeholder="Digite sua mensagem" type="text" tabindex="0" class="input__component input__component--textarea input__component--light"></textarea><!---->
+							</div>
+							<button data-v-64f7934c="" data-v-0cb05154="" type="submit" name="submit" class="grid-button form__button grid-button--primary" style="justify-self: start;">Enviar</button>
+						</form><!---->
+					</div>
+				</div>
+				<div data-v-75861a14="" data-v-4b0fd226="" data-qa="gridtextbox:z5bbob" class="block-grid-item use-m-margin grid__item" style="--text: left; --align: flex-start; --justify: center; --position: 4/3/7/6; --m-element-margin: 0 0 24px 0; --element-z-index: 3;">
+					<div data-v-c658cc4a="" data-v-75861a14="" class="text-box block-grid-item__component" id="z5bbOB" mobile-block-padding="40px 16px 40px 16px" element-width="288" element-height="176">
+						<h6>
+							<span style="color: var(--colors-dark)">Raimundo</span>
+						</h6>
+						<p class="body" style="">
+							<span style="color: var(--colors-dark)">(61) 9 9228-5188<br>raimundo.colombo@gmail.com</span>
+						</p>
+					</div>
+				</div>
+				<div data-v-75861a14="" data-v-4b0fd226="" data-qa="gridtextbox:zkuqcu" class="block-grid-item use-m-margin grid__item" style="--text: left; --align: flex-start; --justify: center; --position: 4/6/7/9; --m-element-margin: 0 0 32px 0; --element-z-index: 4;">
+					<div data-v-c658cc4a="" data-v-75861a14="" class="text-box block-grid-item__component" id="zkuqCU" mobile-block-padding="40px 16px 40px 16px" element-width="288" element-height="176">
+						<h6>
+							<span style="color: var(--colors-dark)">Marcos</span>
+						</h6>
+						<p class="body" style="">
+							<span style="color: var(--colors-dark)">(34) 9 9170-6810 - (62) 9 9320-7235<br>marcos_prog@yahoo.com.br</span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</section><!---->
+	</main>
+	<div data-v-36aa22be="" class="sentry"></div><!---->
+
+
+	<script src="{{ asset('assets/js/chunk-vendors.d42f2c53.js') }}" defer=""></script>
+
+    </body>
+</html>

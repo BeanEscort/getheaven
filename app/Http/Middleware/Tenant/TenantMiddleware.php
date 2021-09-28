@@ -24,13 +24,13 @@ class TenantMiddleware
         if(Tenant::current())
 
             $company = $this->getCompany($request->getHost());
-        else if($request->url() != route('404.tenant'))
-            return redirect()->route('404.tenant');
+        else if($request->url() != route('apresentacao'))
+            return redirect()->route('apresentacao');
         //if($company->database === 'tenancy') return $next($request);
 
-        if(! $company && $request->url() != route('404.tenant')){
-            return redirect()->route('404.tenant');
-        } else if($request->url() != route('404.tenant')){
+        if(! $company && $request->url() != route('apresentacao')){
+            return redirect()->route('apresentacao');
+        } else if($request->url() != route('apresentacao')){
             app(ManagerTenant::class)->setConnection($company);
         }
 
@@ -41,7 +41,7 @@ class TenantMiddleware
     {        
         $comp = Company::where('domain', $host)->first();
 
-        if(!$comp) return redirect()->route('404.tenant'); 
+        if(!$comp) return redirect()->route('apresentacao'); 
         else  
         return $comp;
         
