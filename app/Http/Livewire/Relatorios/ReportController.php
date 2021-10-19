@@ -10,16 +10,21 @@ use PDF;
 
 class ReportController extends Component
 {
-    public $data_ini, $data_fim;
+    public $data_ini; 
+    public $data_fim;
+
     use WithPagination;
+
 
     public function render() 
     {
+      
         $ini = Carbon::parse(Carbon::now())->format('Y-m-d');
         $fim = Carbon::parse(Carbon::now())->format('Y-m-d');
-        
+ 
         if($this->data_ini && $this->data_fim )
         {
+
             $ini = Carbon::parse($this->data_ini)->format('Y-m-d');
             $fim = Carbon::parse($this->data_fim)->format('Y-m-d');   
             

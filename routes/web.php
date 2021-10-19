@@ -8,6 +8,8 @@ use App\Models\Pessoa;
 use App\Models\Tipo;
 use Carbon\Carbon;
 
+use App\Http\Controllers\ContactController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,6 +21,18 @@ use Carbon\Carbon;
 |
 */
 
+
+/*Route::get("email", [MailerController::class, "email"])->name("email");
+
+Route::post("send-email", [MailerController::class, "composeEmail"])->name("send-email");
+
+Route::get('/apresentacao', function () {
+    return view('apresentacao');
+})->name('apresentacao');
+*/
+
+Route::get("/apresentacao",[ContactController::class,"index"])->name("apresentacao");
+Route::post("/apresentacao", [ContactController::class,"saveMessage"])->name("apresentacao");
 
 Route::domain('admin.getheaven.com.br')->middleware(['auth'])->group(function() {
     
@@ -37,7 +51,7 @@ Route::domain('admin.getheaven.com.br')->middleware(['auth'])->group(function() 
     });
 });
 
-Route::view('/apresentacao', 'errors.apresentacao')->name('apresentacao');
+//Route::view('/apresentacao', 'errors.apresentacao')->name('apresentacao');
 
 Route::domain('{tenant}.getheaven.com.br')->middleware('tenant')->group(function(){
     Route::get('/', function ($tenant) {        
@@ -142,13 +156,14 @@ Route::group(['middleware' => 'auth'], function() {
 
     });
 
-    Route::get('/pdf/{ini?}/{fim?}', function($tenant, $ini = 0, $fim = 0) {
+    Route::get('/pdf/{ini?}}', function($tenant, $ini = 0) {
         if($ini===0) {
             session()->flash('msg-error', 'Data de Início e Fim devem ser digitados.');
             return redirect()->back()
             ->with('msg-error', 'Data de Início e Fim devem ser digitados.');
         }
-
+dd($ini);
+       $arr_data = explode("/","-",$ini);
        $ini = Carbon::parse($ini)->format('Y-m-d');
         
         $fim = Carbon::parse($fim)->format('Y-m-d');
@@ -170,7 +185,7 @@ Route::group(['middleware' => 'auth'], function() {
   });
 //});
 
-    function Cpf($cpf) {
+ /*   function CpfCnpj($cpf) {
 
         if(strlen($cpf) == 0) return '';
 
@@ -245,3 +260,4 @@ Route::group(['middleware' => 'auth'], function() {
         return $fone;
 
     }
+*/

@@ -37,6 +37,7 @@
     <link href="{{ asset('plugins/flatpickr/material_red.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('assets/css/elements/color_library.css') }}" rel="stylesheet" type="text/css" />
 
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <!-- Sección para incluír estilos personalizados en los módulos del sistema  -->
      @yield('styles')
 
@@ -247,7 +248,8 @@
     <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('plugins/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ asset('assets/js/app.js') }}"></script>
-
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script>
         $(document).ready(function() {
             App.init();
@@ -263,7 +265,7 @@
 
     <script src="{{ asset('plugins/notification/snackbar/snackbar.min.js') }}"></script>
     <script src="{{ asset('plugins/flatpickr/flatpickr.js') }}"></script>
-
+    <script src="{{ asset('assets/js/flatpickr-pt.js') }}"
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 
     <!-- Sección para incluír scripts personalizados en los módulos del sistema  -->
@@ -297,6 +299,43 @@
         window.livewire.on('msg-error', msgError => {
             toastr.error(msgError, "error")
         })
+    </script>
+
+    <script>
+	$(document).ready(function(){
+		$('input[name="data_inicio"]').daterangepicker({
+"locale": {
+"format": "DD/MM/YYYY",
+"separator": " - ",
+"applyLabel": "Aplicar",
+"cancelLabel": "Cancelar",
+"daysOfWeek": [
+"Dom",
+"Seg",
+"Ter",
+"Qua",
+"Qui",
+"Sex",
+"Sab"
+],
+"monthNames": [
+"Janeiro",
+"Fevereiro",
+"Março",
+"Abril",
+"Maio",
+"Junho",
+"Julho",
+"Agosto",
+"Setembro",
+"Outubro",
+"Novembro",
+"Dezembro"
+],
+"firstDay": 1
+}
+});
+	});
     </script>
 </body>
 </html>

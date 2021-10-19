@@ -8,19 +8,19 @@
                         <div class="col-sm-12 col-md-3 col-lg-3">
                             Data Inicial
                             <div class="form-group">
-                                <input wire:model.lazy="data_ini" type="text"
-                                    class="form-control flatpickr flatpickr-input active">
+                                <input wire:model.lazy="data_ini" type="text" name="data_ini" 
+                                    class="form-control flatpickr flatpickr-input active"> 
                             </div>
                         </div>
 
                         <div class="col-sm-12 col-md-3 col-lg-3">
-                            Data Final
+                            Data Final 
                             <div class="form-group">
                                 <input wire:model.lazy="data_fim" type="text"
                                     class="form-control flatpickr flatpickr-input active">
                             </div>
                         </div>
-
+                         
                         <div class="col-sm-12 col-md-1 col-lg-1 text-left"> 
                         <a href="{{ url('pdf', [$data_ini, $data_fim]) }} " target="_blank" data-toggle="tooltip"
                                             data-placement="top" title="PDF"><svg xmlns="http://www.w3.org/2000/svg"
