@@ -9,7 +9,7 @@
                     </div>
                 </div>
             </div>
-            @include('common.search'{{--, ['create' => 'taxas_create']--}})
+            @include('common.search', ['create' => 'taxas_create'])
             @include('common.alerts')
             <div class="col-lg-3 col-md-3 col-sm-12">
                 <button wire:click.prevent="AtualizaTaxa()" class="btn btn-primary btn-lg btn-block">
@@ -35,7 +35,7 @@
                             <td>{{$r->valor}}</td>
                             <td>{{\Carbon\Carbon::parse($r->created_at)->format('d/m/Y')}}</td>
                             <td class="text-center">
-                                @include('common.actions'{{--,['edit' => 'taxas_edit', 'destroy' => 'taxas_destroy']--}})
+                                @include('common.actions',['edit' => 'taxas_edit', 'destroy' => 'taxas_destroy'])
                             </td>
                         </tr>
                         @endforeach

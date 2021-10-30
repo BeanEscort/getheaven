@@ -1,3 +1,3 @@
 <a href="/">
-    <img height="100px" width="100px" src="/images/logoadmin.png"></img>
+    <img height="96px" width="96px" src="/images/favicon-96x96.png"></img>
 </a>

@@ -7,7 +7,7 @@
 
     <title>  @yield('title', 'Cemitérios') </title>
 
-    <link rel="shortcut icon" href="{{ asset('assets/img/favicon.ico') }}" >
+    <link rel="shortcut icon" href="{{ asset('favicon-32x32.png') }}" >
 
 {{--
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon.ico') }}"/> --}}

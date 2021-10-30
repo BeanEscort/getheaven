@@ -10,7 +10,7 @@
                     </div>
                 </div>
             </div>
-            @include('common.search'{{--, ['create' => 'requerimento_create']--}})
+            @include('common.search', ['create' => 'requerimento_create'])
             <div>
                 @if (session()->has('message'))
                     <div class="alert alert-success">
@@ -50,7 +50,7 @@
                             <td>{{\Carbon\Carbon::parse($r->dt_obito)->format('d/m/Y')}}</td>
                             <td class="text-center" width="150">
                                 <ul class="table-controls">
-                               {{-- @can('requerimentos_pdf') --}}
+                                @can('requerimentos_pdf') 
                                     <li>
                                         <a href="{!! url('geraPdf', $r->id) !!} " target="_blank" data-toggle="tooltip"
                                             data-placement="top" title="Imprimir"><svg xmlns="http://www.w3.org/2000/svg"
@@ -64,8 +64,8 @@
                                                 <rect x="6" y="14" width="12" height="8"></rect>
                                             </svg></a>
                                     </li>
-                                {{-- @endcan --}}
-                               {{-- @can('requerimento_edit')--}}
+                                @endcan
+                                @can('requerimento_edit')
                                     <li>
                                         <a href="javascript:void(0);" wire:click="edit({{$r->id}})"
                                             data-toggle="tooltip" data-placement="top" title="Alterar"><svg
@@ -77,7 +77,7 @@
                                                 </path>
                                             </svg></a>
                                     </li>
-                                {{--@endcan--}}
+                                @endcan
                                 </ul>
                             </td>
                         </tr>

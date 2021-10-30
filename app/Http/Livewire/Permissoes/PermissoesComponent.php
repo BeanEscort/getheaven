@@ -17,7 +17,7 @@ class PermissoesComponent extends Component
     {
         $roles = Role::select('*', DB::RAW("0 as checked"))->get();
         $permissoes = Permission::select('*', DB::RAW("0 as checked"))->get();
-dd($roles);
+
         if($this->userSelected != '' && $this->userSelected != 'Selecione')
         {
             foreach ($roles as $r) {

@@ -19,7 +19,7 @@
     <section class="text-gray-600 body-font">
         <div class="container px-5 py-4 mx-auto flex">
             <div class="sm:p-2 p-1 sm:w-1/5">
-                <img class="w-4/5 object-cover h-4/5 mx-auto object-center block" src="images/cemiterioslogo.png" />
+                <img class="w-4/5 object-cover h-4/5 mx-auto object-center block" src="images/favicon-126x126.png" />
             </div>
 	    
         </div>

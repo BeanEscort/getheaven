@@ -8,10 +8,10 @@
         </div>
     </div>
     <div class="col-lg-2 col-md-2 col-sm-2 mt-2 mb-2 text-right mr-2">
-{{--    @can($create) --}}
+    @can($create) 
         <button class="btn btn-dark" type="button" wire:click="doAction(2)" title="Novo Registro">
             <i class="la la-file la-lg"></i>
         </button>
-    {{--@endcan--}}
+    @endcan
     </div>
 </div>
