@@ -25,8 +25,16 @@ class CreateUsersTable extends Migration
             $table->string('domain')->nullable();
             $table->string('orgao')->nullable();
             $table->enum('tipo', ['Admin', 'Usuário', 'Gerente'])->default('Admin');
+	    $table->text('logo')->nullable();
             $table->timestamps();
         });
+	Schema::create('empresas', function(Blueprint $table) {
+		$table->id();
+		$table->string('domain')->nullable();
+		$table->string('orgao')->nullable();
+		$table->text('logo')->nullable();
+		$table->timestamps();
+	});
     }
 
     /**

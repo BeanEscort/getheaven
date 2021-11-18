@@ -16,7 +16,7 @@ class UsersComponent extends Component
 	use GenericTrait;
 
 	//properties
-	public  $tipo ='Escolha',$name,$domain,$email,$orgao,$password;
+	public  $tipo ='Escolha',$name,$domain,$email,$orgao,$password, $logo;
 	public  $selected_id, $search;   						
     public  $action = 1, $event=false;             						
     private $pagination = 5;         						
@@ -27,7 +27,8 @@ class UsersComponent extends Component
 		$user_id = auth()->user()->id;
 
 		$this->domain = auth()->user()->domain;
-		$this->orgao = auth()->user()->orgao;		
+		$this->orgao = auth()->user()->orgao;
+		$this->logo = auth()->user()->logo;
 	}
 
     public function render()
@@ -93,7 +94,7 @@ class UsersComponent extends Component
 
     //método para registrar y/o actualizar registros
     public function StoreOrUpdate()
-    {         	
+    {
 		//$avatar = $this->storeAvatar();
 
     	$this->validate([
@@ -111,7 +112,8 @@ class UsersComponent extends Component
     		$user =  User::create([
     			'name' => $this->name,            
     			'domain' => $this->domain,            
-    			'orgao' => $this->orgao,            
+    			'orgao' => $this->orgao,
+			'logo' => $this->logo,
     			'tipo' => $this->tipo,
     			'email' => $this->email,
 				'password' => bcrypt($this->password),
@@ -126,7 +128,8 @@ class UsersComponent extends Component
     		$user->update([
     			'name' => $this->name,            
     			'domain' => $this->domain,            
-    			'orgao' => $this->orgao,            
+    			'orgao' => $this->orgao,
+	     		'logo' => $this->logo,
     			'tipo' => $this->tipo,
     			'email' => $this->email,							
 				

@@ -4,6 +4,8 @@ header('Access-Control-Allow-Origin: *');
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmpresasController;
 use App\Http\Controllers\PdfController;
+use App\Http\Livewire\ReportsController;
+use App\Http\Controllers\ExportController;
 use App\Models\Pessoa;
 use App\Models\Tipo;
 use Carbon\Carbon;
@@ -21,7 +23,6 @@ use App\Http\Controllers\ContactController;
 |
 */
 
-
 /*Route::get("email", [MailerController::class, "email"])->name("email");
 
 Route::post("send-email", [MailerController::class, "composeEmail"])->name("send-email");
@@ -30,9 +31,11 @@ Route::get('/apresentacao', function () {
     return view('apresentacao');
 })->name('apresentacao');
 */
+//Route::view('/404.tenant', 'errors.404.tenant')->name('404.tenant');
 
-Route::get("/apresentacao",[ContactController::class,"index"])->name("apresentacao");
-Route::post("/apresentacao", [ContactController::class,"saveMessage"])->name("apresentacao");
+	Route::get('/apresentacao',[ContactController::class,'index'])->name('apresentacao');
+	Route::post('/apresentacao', [ContactController::class,'saveMessage'])->name('apresentacao');
+
 
 Route::domain('admin.getheaven.com.br')->middleware(['auth'])->group(function() {
     
@@ -50,8 +53,6 @@ Route::domain('admin.getheaven.com.br')->middleware(['auth'])->group(function() 
         return view('dashboard');
     });
 });
-
-//Route::view('/apresentacao', 'errors.apresentacao')->name('apresentacao');
 
 Route::domain('{tenant}.getheaven.com.br')->middleware('tenant')->group(function(){
     Route::get('/', function ($tenant) {        
@@ -85,10 +86,19 @@ Route::group(['middleware' => 'auth'], function() {
     Route::view('permissoes', 'permissoes');
     Route::view('usuarios', 'usuarios');
 
-    Route::get('/geraPdf/{id}', [PdfController::class, 'geraPdf']);
+    Route::get('reports', ReportsController::class);
+    Route::get('reports/pdf/{user}/{f1}/{f2}', [ExportController::class, 'reportPDF']);
+    Route::get('reports/pdf/geraPdf/{f1}', [ExportController::class, 'geraPDF']);
+
+    Route::get('reports/excel/{user}/{f1}/{f2}', [ExportController::class, 'reportExcel']);
+//    Route::get('reports/excel/geraPdf/{f1}', [ExportController::class, 'geraPDF']);
+  //  Route::get('/geraPdf/{id}', [PdfController::class, 'geraPdf']);
+//    Route::get('/pdf/{d1}/{d2}', [PdfController::class, 'reportPDF']);
 });
     Route::get('/reservas/{id}', [PdfController::class, 'reservaPdf']);
 //});
+    Route::get('/pdf/{d1}/{d2}', [PdfController::class, 'reportPDF']);
+
     Route::get('/pdf/{id}', function ($tenant, $id) {
 
         $mes = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
@@ -162,7 +172,7 @@ Route::group(['middleware' => 'auth'], function() {
             return redirect()->back()
             ->with('msg-error', 'Data de Início e Fim devem ser digitados.');
         }
-dd($ini);
+//dd($ini);
        $arr_data = explode("/","-",$ini);
        $ini = Carbon::parse($ini)->format('Y-m-d');
         

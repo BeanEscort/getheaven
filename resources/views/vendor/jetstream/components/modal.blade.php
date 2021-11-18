@@ -8,17 +8,18 @@ switch ($maxWidth ?? '2xl') {
         $maxWidth = 'sm:max-w-sm';
         break;
     case 'md':
-        $maxWidth = 'sm:max-w-md';
+        $maxWidth = 'lg:max-w-md';
         break;
     case 'lg':
-        $maxWidth = 'sm:max-w-lg';
+        $maxWidth = 'lg:max-w-lg';
         break;
     case 'xl':
-        $maxWidth = 'sm:max-w-xl';
+        $maxWidth = 'lg:max-w-xl';
         break;
     case '2xl':
     default:
-        $maxWidth = 'sm:max-w-2xl';
+        $maxWidth = 'lg:max-w-2xl';
+//dd($maxWidth);
         break;
 }
 @endphp

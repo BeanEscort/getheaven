@@ -19,7 +19,7 @@
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-
+ 
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead>
                             <tr>
@@ -106,15 +106,15 @@
 
             <div class="form-group col-lg-8 col-md-8 col-sm-12">
                 <x-jet-label for="name" value="{{ __('Nome da Empresa') }}" />
-                <x-jet-input id="name" class="form-control block mt-1 w-full" type="text" wire:model.debounce.800ms="name"/>
-                @error('name')
+		@error('name')
                     <span class="error">{{$message}}</span>
                 @enderror
+                <x-jet-input id="name" class="form-control block mt-1 w-full" type="text" wire:model.debounce.800ms="name"/>
             </div>
 
             <div class="form-group col-lg-4 col-md-4 col-sm-12">
                 <x-jet-label for="cnpj" value="{{ __('CNPJ') }}" />
-                <x-jet-input wire:keydown.enter="testaCNPJ()" wire:blur="testaCNPJ()" id="cnpj" class="form-control block mt-1 w-full" type="text" wire:model="cnpj"/>
+                <x-jet-input wire:keydown.enter="testaCNPJ()" wire:blur="testaCNPJ()" id="cnpj" class="form-control block mt-1 w-full" type="text" wire:model="cnpj" />
                 @error('cnpj')
                     <span class="error">{{$message}}</span>
                 @enderror
@@ -187,8 +187,16 @@
 
             </div>
 
-        </div>
-
+	    <div class="mt-1 form-group col-lg-12 col-md-12 col-sm-12">
+                <x-jet-label for="logo" value="{{ __('Logo da Empresa') }}" />
+		@error('logo')
+                	<span class="error">{{$message}}</span>
+                @enderror
+		<div class="mt-1 flex rounded-md shadow-sm">
+	                <x-jet-input id="logo" class="form-control block mt-1 w-full" type="file" wire:model="logo" />
+            	</div>
+            </div>
+	</div>
         </x-slot>
 
         <x-slot name="footer">

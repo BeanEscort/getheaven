@@ -34,7 +34,7 @@
      <link href="{{ asset('plugins/notification/snackbar/snackbar.min.css') }}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/forms/switches.css') }}">
     <link href="{{ asset('plugins/flatpickr/flatpickr.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('plugins/flatpickr/material_red.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('plugins/flatpickr/dark.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('assets/css/elements/color_library.css') }}" rel="stylesheet" type="text/css" />
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
@@ -192,7 +192,7 @@
                         </a>
                         <ul class="collapse submenu list-unstyled" id="page"  data-parent="#topAccordion">
                             <li>
-                                <a href="{{ url('report') }}"> POR DATA ÓBITO</a>
+                                <a href="{{ url('reports') }}"> POR DATA ÓBITO</a>
                             </li>
 			   <li>
 			{{-- 	<a href=" url('list.clientes') }}" CLIENTES </a> --}}

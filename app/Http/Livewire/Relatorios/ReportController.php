@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Relatorios;
 
 use App\Models\Pessoa;
+use App\Models\Empresa;
 use Livewire\WithPagination;
 use Livewire\Component;
 use Carbon\Carbon;
@@ -18,7 +19,9 @@ class ReportController extends Component
 
     public function render() 
     {
-      
+        $empresas = Empresa::get();
+	$logo = $empresas->logo;
+
         $ini = Carbon::parse(Carbon::now())->format('Y-m-d');
         $fim = Carbon::parse(Carbon::now())->format('Y-m-d');
  
@@ -39,6 +42,7 @@ class ReportController extends Component
         return view('livewire.relatorios.report-controller', [
             'info' => $info,
             'total' => $total,
+	    'logo' => $logo,
         ]);
     }
 

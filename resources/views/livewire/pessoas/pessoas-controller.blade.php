@@ -39,9 +39,9 @@
 
                             <td class="text-center" width="150px">
                                 <ul class="table-controls">
-                               {{--  @can('pessoas_pdf')--}}
+                                @can('pessoas_pdf')
                                     <li>
-                                        <a href="{!! url('geraPdf', $r->id) !!} " target="_blank" data-toggle="tooltip"
+                                        <a href="{{ url('reports/pdf/geraPdf'.'/'. $r->id) }} " target="_blank" data-toggle="tooltip"
                                             data-placement="top" title="PDF"><svg xmlns="http://www.w3.org/2000/svg"
                                                 width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                 stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -54,8 +54,8 @@
                                             </svg></a>
                                         
                                     </li>
-                                {{--@endcan
-                                @can('pessoas_edit')--}}
+                                @endcan
+                                @can('pessoas_edit')
                                     <li>
                                         <a href="javascript:void(0);" wire:click="edit({{$r->id}})"
                                             data-toggle="tooltip" data-placement="top" title="Edit"><svg
@@ -67,8 +67,8 @@
                                                 </path>
                                             </svg></a>
                                     </li>
-                                {{--@endcan
-                                @can('pessoas_destroy')--}}
+                                @endcan
+                                @can('pessoas_destroy')
                                     <li>
                                         <a href="javascript:void(0);" onClick="Confirm('{{$r->id}}')"
                                             data-toggle="tooltip" data-placement="top" title="Delete"><svg
@@ -83,7 +83,7 @@
                                                 <line x1="14" y1="11" x2="14" y2="17"></line>
                                             </svg></a>
                                     </li>
-                              {{--  @endcan --}}
+                                @endcan 
                                 </ul>
                             </td>
                         </tr>

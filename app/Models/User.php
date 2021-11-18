@@ -42,6 +42,7 @@ class User extends Authenticatable
         'celular',
         'orgao',
         'tipo',
+	'logo',
     ];
 
     /**

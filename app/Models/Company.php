@@ -15,6 +15,9 @@ class Company extends Tenant
         'domain',
         'database',
         'cnpj',
+	'endereco',
+	'numero',
+	'bairro',
         'contato',
         'telefone_fixo',
         'celular',
@@ -23,6 +26,7 @@ class Company extends Tenant
         'city_id',
         'state_id',
         'orgao_responsavel',
+	'logo',
     ];
 
     public static function boot(){

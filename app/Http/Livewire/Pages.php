@@ -19,6 +19,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Str;
 use Spatie\Multitenancy\Tasks\SwitchTenantTask;
+use Livewire\WithFileUploads;
 
 class Pages extends Component
 {
@@ -36,11 +37,13 @@ class Pages extends Component
      */
     protected $description = 'Executa as Migrations dos Inquilinos';
 
+    use WithFileUploads;
     use WithPagination;
     use GenericTrait;
+
     public $modalFormVisible = false;
     public $modalConfirmDeleteVisible = false;
-    public $domain, $telefone_fixo, $celular;
+    public $domain, $telefone_fixo, $celular, $logo;
     public $name, $contato, $cities=[], $states, $state_id='Escolha';
     public $cnpj, $orgao_responsavel;
     public $database, $uf, $city_id='Escolha';
@@ -59,9 +62,9 @@ class Pages extends Component
             'database' => ['required', Rule::unique('tenants', 'database')->ignore($this->modelId)],
             'orgao_responsavel' => 'required',
             'contato' => 'required',
-            'city_id' => 'Required|not_in:Escolha',
-            'state_id' => 'Required|not_in:Escolha',
-
+            'city_id' => 'required|not_in:Escolha',
+            'state_id' => 'required|not_in:Escolha',
+	    'logo' => 'required|image|max:1024',
         ];
     }
 
@@ -96,7 +99,9 @@ class Pages extends Component
             'database.required' => 'Banco de Dados deve ser digitado',
             'contato.requried' => 'Digite o nome do Contato',
             'orgao_responsavel.required' => 'Orgão responsável pelo cemitério',
-
+	    'logo.required' => 'É obrigatório escolher uma logo',
+	    'logo.image' => 'A logo escolhida é inválida!',
+	    'logo.max' => 'A logo deve ter no máximo 1024 caracteres',
         ];
 
         $this->validate($this->rules(), $customMessages);
@@ -121,13 +126,17 @@ class Pages extends Component
         $city->name = $this->converteMaiusculo($city->name);
      
         DB::statement("
-            update  {$company->database}.users SET domain = '$city->name', orgao = '$company->orgao_responsavel' WHERE id = '1'
+            update  {$company->database}.users SET domain = '$city->name', orgao = '$company->orgao_responsavel', logo = '$company->logo' WHERE id = '1'
 
         ");
      
         DB::statement("
 
             insert into  {$company->database}.causas (nome) VALUE ('INDETERMINADA')
+        ");
+	DB::statement("
+
+            insert into  {$company->database}.empresas (domain,orgao,logo) VALUE ('$company->domain', '$company->orgao_responsavel','$company->logo')
         ");
         $this->resetVars();
         $this->loadingVisible = false;
@@ -188,6 +197,7 @@ class Pages extends Component
     public function loadModel()
     {
         $data = Company::find($this->modelId);
+
         $this->cnpj = $data->cnpj;
 
         $this->domain = $data->domain;
@@ -201,10 +211,13 @@ class Pages extends Component
         $this->state_id = $data->state_id;
         $this->changeCity();
         $this->city_id = $data->city_id;
+	$this->logo = $data->logo;
     }
 
     public function modelData()
     {
+	$logo = $this->storageLogo();
+
         return [
             'name' => $this->name,
             'cnpj' => $this->cnpj,
@@ -216,6 +229,7 @@ class Pages extends Component
             'city_id' => $this->city_id,
             'state_id' => $this->state_id,
             'orgao_responsavel' => $this->orgao_responsavel,
+	    'logo' => $logo,
         ];
     }
 
@@ -232,6 +246,7 @@ class Pages extends Component
         $this->city_id = null;
         $this->state_id = null;
         $this->orgao_responsavel = null;
+	$this->logo = null;
     }
 
     public function generateDomain($value)
@@ -250,4 +265,12 @@ class Pages extends Component
         ]);
     }
 
+    public function storageLogo()
+    {
+
+	$nameFile = Str::slug($this->database).'.'.$this->logo->getClientOriginalExtension();
+
+	return $this->logo->storeAs('tenants', $nameFile);
+
+    }
 }

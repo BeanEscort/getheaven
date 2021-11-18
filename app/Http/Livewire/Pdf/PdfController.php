@@ -23,7 +23,7 @@ class PdfController extends Component
 
     public function geraPdf($id)
     {
-        dd($id);
+//        dd($id);
         $mes = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
 
         $requerimento = Pessoa::leftjoin('clientes as cli', 'cli.id','pessoas.cliente_id')
@@ -37,7 +37,7 @@ class PdfController extends Component
                     ->where('pessoas.id', $id)
                     ->get();
         //$pessoa = $requerimento[0];
-        dd($requerimento);
+//        dd($requerimento);
         if(! $pessoa->cpf) 
         {
             session()->flash('msg-error', 'O Requerente não foi encontrado, complete os dados antes de  continuar.');

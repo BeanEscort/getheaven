@@ -79,6 +79,7 @@ class CreateAllTables extends Migration
             $table->id();
             $table->string('nome');
             $table->unsignedBigInteger('cliente_id');
+	    $table->string('cpf_do_cliente')->nullable();
             $table->string('pai')->nullable();
             $table->string('mae')->nullable();
             $table->string('idade')->nullable();

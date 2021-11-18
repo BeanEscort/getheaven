@@ -33,9 +33,8 @@ class TenantMiddleware
         } else if($request->url() != route('apresentacao')){
             app(ManagerTenant::class)->setConnection($company);
         }
-//dd(route('apresentacao'));
-        return $next($request);
 
+        return $next($request);
     }
 
     public function getCompany($host)

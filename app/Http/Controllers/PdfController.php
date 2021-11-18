@@ -4,15 +4,34 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Traits\GenericTrait;
-use PDF;
+use Barryvdh\DomPDF\Facade as PDF;
 use App\Models\Taxa;
 use App\Models\Reserva;
 use App\Models\Pessoa;
 use App\Models\Tipo;
+use App\Models\Cliente;
+use App\Models\Cemiterio;
 
 class PdfController extends Controller
 {
     use GenericTrait;
+
+	public function reportPDF($tenant,$dateFrom, $dateTo)
+	{
+		$data = [];
+	dd($dateTo.'-');
+		$from = \Carbon\Carbon::parse($dateFrom)->format('d/m/Y');
+		$to = \Carbon\Carbon::parse($dateFrom)->format('d/m/Y');
+	
+		$data = Pessoa::join('cemiterios as c', 'c.id','pessoas.cemiterio_id')
+			->select('pessoas.*', 'c.nome as cemiterio')
+			->whereBetween('pessoas.dt_obito', [$from, $to])
+			->get();
+				
+		$pdf = PDF::loadview('pdf.report', compact('data','dateFrom', 'dateTo'));
+	
+		return $pdf->stream('pessoasReport.pdf');
+	} 
 
     public function geraPdf($tenant, $id)
     {
@@ -48,7 +67,7 @@ class PdfController extends Controller
 	$pessoa->name = auth()->user()->name;
 
 	$fileName = time().$pessoa->cpf.date("dmY").'.pdf';
-        $pessoa->cpf = cpf($pessoa->cpf);
+        $pessoa->cpf = $this->CpfCli($pessoa->cpf);
         $pessoa->telefone = fone($pessoa->telefone);
         $pessoa->celular1 = fone($pessoa->celular1);
         $pessoa->celular2 = fone($pessoa->celular2);
